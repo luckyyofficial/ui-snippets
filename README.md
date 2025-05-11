@@ -1,7 +1,7 @@
 # 🌐 Frontend Web Snippets
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Web-Development-00bfff?style=flat-square" />
+  <img src="img/web-dev" />
 </p>
 
 Welcome to the **Frontend Web Snippets** repository — a personal collection of reusable, practical, and modular frontend code blocks designed to improve efficiency and consistency in web development.
