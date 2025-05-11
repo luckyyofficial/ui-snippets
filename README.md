@@ -1,7 +1,7 @@
 # 🌐 Frontend Web Snippets
 
 <p align="center">
-  <img src="img/web-dev" />
+  <img src="img/web-dev.svg"/>
 </p>
 
 Welcome to the **Frontend Web Snippets** repository — a personal collection of reusable, practical, and modular frontend code blocks designed to improve efficiency and consistency in web development.
