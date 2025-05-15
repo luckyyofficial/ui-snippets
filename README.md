@@ -13,7 +13,7 @@ Welcome to the **Frontend Web Snippets** repository — a personal collection of
 This repository is a growing collection of frontend development snippets, styles, and patterns — created, tested, and documented for both learning and rapid implementation in web projects.
 
 ---
-
+  
 ## 🛠️ Technologies Used
 
 - **HTML**
