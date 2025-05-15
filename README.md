@@ -6,7 +6,7 @@
 
 Welcome to the **Frontend Web Snippets** repository — a personal collection of reusable, practical, and modular frontend code blocks designed to improve efficiency and consistency in web development.
 
----
+---  s
 
 ## 📁 About This Repository
 
