@@ -5,11 +5,11 @@
 </p>
 
 Welcome to the **Frontend Web Snippets** repository — a personal collection of reusable, practical, and modular frontend code blocks designed to improve efficiency and consistency in web development.
-  
+    
 ---  s
 
 ## 📁 About This Repository
-
+  
 This repository is a growing collection of frontend development snippets, styles, and patterns — created, tested, and documented for both learning and rapid implementation in web projects.
 
 ---
