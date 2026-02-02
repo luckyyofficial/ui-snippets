@@ -3,11 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-
+    <title>Centered Download Button</title>
 <style>
 
+/* THIS SECTION CENTERS THE CONTENT */
+body {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #1a1a1a; /* Dark background to see the white text better */
+}
 
 .container {
   padding: 0;
@@ -218,31 +225,16 @@
     right: 56px;
   }
 }
-
-
 </style>
-
+</head>
 <body>
-
 
 <div class="container">
   <label class="label">
     <input type="checkbox" class="input" />
-    <span class="circle"
-      ><svg
-        class="icon"
-        aria-hidden="true"
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-      >
-        <path
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="1.5"
-          d="M12 19V5m0 14-4-4m4 4 4-4"
-        ></path>
+    <span class="circle">
+      <svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 19V5m0 14-4-4m4 4 4-4"></path>
       </svg>
       <div class="square"></div>
     </span>
@@ -251,6 +243,5 @@
   </label>
 </div>
 
-    
 </body>
 </html>
