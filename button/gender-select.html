@@ -1,198 +1,148 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Gender Selection</title>
-<style>
-  :root{
-    --text:#0f172a;          /* slate-900 */
-    --muted:#475569;         /* slate-600 */
-    --card:#ffffff;
-    --border:#e2e8f0;        /* slate-200 */
-    --ring:#2563eb;          /* blue-600 */
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Centered Gender Selection</title>
+  <style>
+    :root {
+      --text: #0f172a;
+      --muted: #475569;
+      --card: #ffffff;
+      --border: #e2e8f0;
+      --ring: #2563eb;
+      --male: #3b82f6;
+      --female: #ec4899;
+      --nb: #8b5cf6;
+      --none: #9ca3af;
+    }
 
-    --male:#3b82f6;          /* blue-500 */
-    --female:#ec4899;        /* pink-500 */
-    --nb:#8b5cf6;            /* violet-500 */
-    --none:#9ca3af;          /* gray-400 */
-  }
+    * { box-sizing: border-box; }
 
-  *{box-sizing:border-box}
-  body{
-    margin:0;
-    font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
-    color:var(--text);
-    background:#f8fafc;      /* slate-50 */
-    display:grid;
-    place-items:center;
-    min-height:100vh;
-    padding:24px;
-  }
+    /* UNIFORM CENTERING METHOD */
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial;
+      color: var(--text);
+      background: #f8fafc;
+      /* Flexbox Centering */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px; /* Prevents card from hitting screen edges */
+    }
 
-  .card{
-    width:min(720px, 100%);
-    background:var(--card);
-    border:1px solid var(--border);
-    border-radius:16px;
-    box-shadow:0 4px 14px rgba(2,6,23,.06);
-    padding:24px;
-  }
+    .card {
+      width: min(720px, 100%);
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: 0 4px 14px rgba(2, 6, 23, .06);
+      padding: 24px;
+    }
 
-  fieldset{
-    border:0;
-    margin:0;
-    padding:0;
-  }
-  legend{
-    font-size:14px;
-    font-weight:700;
-    letter-spacing:.02em;
-    text-transform:uppercase;
-    color:var(--muted);
-    margin-bottom:16px;
-  }
-  .hint{
-    font-size:13px;
-    color:var(--muted);
-    margin:4px 0 20px 0;
-  }
+    fieldset { border: 0; margin: 0; padding: 0; }
 
-  .grid{
-    display:grid;
-    grid-template-columns: repeat(4, minmax(0,1fr));
-    gap:16px;
-  }
-  @media (max-width:640px){
-    .grid{ grid-template-columns: repeat(2, minmax(0,1fr)); }
-  }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+    }
 
-  /* Option */
-  .option{
-    display:flex;
-    align-items:center;
-    gap:12px;
-    padding:12px;
-    border:1px solid var(--border);
-    border-radius:12px;
-    background:#fff;
-    transition:border-color .15s ease, box-shadow .15s ease;
-    cursor:pointer;
-    min-height:64px;
-  }
-  .option:hover{
-    border-color:#cbd5e1; /* slate-300 */
-  }
-  .option:has(input:focus-visible){
-    outline:2px solid var(--ring);
-    outline-offset:2px;
-  }
-  .option input{
-    position:absolute;
-    opacity:0;
-    pointer-events:none;
-  }
+    @media (max-width: 768px) {
+      .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
 
-  .dot{
-    width:40px; height:40px;
-    border-radius:50%;
-    display:grid; place-items:center;
-    background:#f1f5f9;      /* slate-100 */
-    border:1px solid var(--border);
-    flex:0 0 40px;
-  }
-  .dot svg{
-    width:22px; height:22px;
-  }
+    @media (max-width: 480px) {
+      .grid { grid-template-columns: 1fr; } /* Stack on very small screens */
+    }
 
-  .label{
-    display:flex; flex-direction:column;
-    line-height:1.2;
-  }
-  .label .title{
-    font-size:14px; font-weight:600;
-  }
-  .label .caption{
-    font-size:12px; color:var(--muted);
-  }
+    /* Option Styling */
+    .option {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #fff;
+      transition: all .15s ease;
+      cursor: pointer;
+      min-height: 64px;
+      position: relative;
+    }
 
-  /* Color accents per choice */
-  .male .dot{ background: #eff6ff; border-color:#bfdbfe; }
-  .male .dot svg{ stroke: var(--male); fill: none; }
+    .option:hover { border-color: #cbd5e1; }
 
-  .female .dot{ background: #fdf2f8; border-color:#fbcfe8; }
-  .female .dot svg{ fill: var(--female); }
+    .option input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
 
-  .nb .dot{ background:#f5f3ff; border-color:#ddd6fe; }
-  .nb .dot svg{ fill: var(--nb); }
+    .dot {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      display: grid; place-items: center;
+      background: #f1f5f9;
+      border: 1px solid var(--border);
+      flex: 0 0 40px;
+    }
 
-  .none .dot{ background:#f5f5f5; border-color:#e5e7eb; }
-  .none .dot svg{ stroke: var(--none); fill: none; }
+    .dot svg { width: 22px; height: 22px; }
 
-  /* Selected state (subtle, professional) */
-  .option:has(input:checked){
-    border-color: var(--ring);
-    box-shadow: 0 0 0 3px rgba(37,99,235,.12);
-  }
-</style>
+    .label { display: flex; flex-direction: column; line-height: 1.2; }
+    .label .title { font-size: 14px; font-weight: 600; }
+
+    /* Color accents */
+    .male .dot { background: #eff6ff; border-color: #bfdbfe; }
+    .male .dot svg { stroke: var(--male); fill: none; }
+    .female .dot { background: #fdf2f8; border-color: #fbcfe8; }
+    .female .dot svg { fill: var(--female); }
+    .nb .dot { background: #f5f3ff; border-color: #ddd6fe; }
+    .nb .dot svg { fill: var(--nb); }
+    .none .dot { background: #f5f5f5; border-color: #e5e7eb; }
+    .none .dot svg { stroke: var(--none); fill: none; }
+
+    /* Selected state */
+    .option:has(input:checked) {
+      border-color: var(--ring);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, .12);
+      background-color: #f8fafc;
+    }
+  </style>
 </head>
 <body>
+
+
 
 <div class="card">
   <form>
     <fieldset>
-
       <div class="grid" role="radiogroup" aria-label="Gender">
-        <!-- Male -->
-        <label class="option male" aria-label="Male">
+        <label class="option male">
           <input type="radio" name="gender" value="male" />
-          <span class="dot" aria-hidden="true">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-              <path fill-rule="evenodd" clip-rule="evenodd" d="M15.5631 16.1199C14.871 16.81 13.9885 17.2774 13.0288 17.462C12.0617 17.6492 11.0607 17.5459 10.1523 17.165C8.29113 16.3858 7.07347 14.5723 7.05656 12.5547C7.04683 11.0715 7.70821 9.66348 8.8559 8.72397C10.0036 7.78445 11.5145 7.4142 12.9666 7.71668C13.9237 7.9338 14.7953 8.42902 15.4718 9.14008C16.4206 10.0503 16.9696 11.2996 16.9985 12.6141C17.008 13.9276 16.491 15.1903 15.5631 16.1199Z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </span>
-          <span class="label">
-            <span class="title">Male</span>
-          </span>
+          <span class="dot"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15.5631 16.1199C14.871 16.81 13.9885 17.2774 13.0288 17.462C12.0617 17.6492 11.0607 17.5459 10.1523 17.165C8.29113 16.3858 7.07347 14.5723 7.05656 12.5547C7.04683 11.0715 7.70821 9.66348 8.8559 8.72397C10.0036 7.78445 11.5145 7.4142 12.9666 7.71668C13.9237 7.9338 14.7953 8.42902 15.4718 9.14008C16.4206 10.0503 16.9696 11.2996 16.9985 12.6141C17.008 13.9276 16.491 15.1903 15.5631 16.1199Z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></span>
+          <span class="label"><span class="title">Male</span></span>
         </label>
 
-        <!-- Female -->
-        <label class="option female" aria-label="Female">
+        <label class="option female">
           <input type="radio" name="gender" value="female" />
-          <span class="dot" aria-hidden="true">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-              <path fill-rule="evenodd" clip-rule="evenodd" d="M20 9C20 13.0803 16.9453 16.4471 12.9981 16.9383C12.9994 16.9587 13 16.9793 13 17V19H14C14.5523 19 15 19.4477 15 20C15 20.5523 14.5523 21 14 21H13V22C13 22.5523 12.5523 23 12 23C11.4477 23 11 22.5523 11 22V21H10C9.44772 21 9 20.5523 9 20C9 19.4477 9.44772 19 10 19H11V17C11 16.9793 11.0006 16.9587 11.0019 16.9383C7.05466 16.4471 4 13.0803 4 9C4 4.58172 7.58172 1 12 1C16.4183 1 20 4.58172 20 9Z"/>
-            </svg>
-          </span>
-          <span class="label">
-            <span class="title">Female</span>
-          </span>
+          <span class="dot"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 9C20 13.0803 16.9453 16.4471 12.9981 16.9383C12.9994 16.9587 13 16.9793 13 17V19H14C14.5523 19 15 19.4477 15 20C15 20.5523 14.5523 21 14 21H13V22C13 22.5523 12.5523 23 12 23C11.4477 23 11 22.5523 11 22V21H10C9.44772 21 9 20.5523 9 20C9 19.4477 9.44772 19 10 19H11V17C11 16.9793 11.0006 16.9587 11.0019 16.9383C7.05466 16.4471 4 13.0803 4 9C4 4.58172 7.58172 1 12 1C16.4183 1 20 4.58172 20 9Z"/></svg></span>
+          <span class="label"><span class="title">Female</span></span>
         </label>
 
-        <!-- Non-binary -->
-        <label class="option nb" aria-label="Non-binary">
+        <label class="option nb">
           <input type="radio" name="gender" value="non-binary" />
-          <span class="dot" aria-hidden="true">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-              <path d="M226.597,200.834611 L296.853333,271.084945 L353.819,271.084 L326.248389,243.503223 L356.418278,213.333333 L435.503223,292.418278 L356.418278,371.503223 L326.248389,341.333333 L353.82,313.751 L279.163435,313.751611 L196.418,231.011611 L226.597,200.834611 Z M356.418278,0 L435.503223,79.0849447 L356.418278,158.169889 L326.248389,128 L353.82,100.418 L296.853333,100.418278 L83.503232,313.751611 L0,313.751611 L0,271.084945 L65.8133333,271.084945 L279.163435,57.7516113 L353.82,57.751 L326.248389,30.1698893 L356.418278,0 Z M83.503232,57.7516113 L166.248,140.490611 L136.069,170.667611 L65.8133333,100.418278 L0,100.418278 L0,57.7516113 L83.503232,57.7516113 Z"/>
-            </svg>
-          </span>
-          <span class="label">
-            <span class="title">Non-binary</span>
-          </span>
+          <span class="dot"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M226.597,200.834611 L296.853333,271.084945 L353.819,271.084 L326.248389,243.503223 L356.418278,213.333333 L435.503223,292.418278 L356.418278,371.503223 L326.248389,341.333333 L353.82,313.751 L279.163435,313.751611 L196.418,231.011611 L226.597,200.834611 Z"/></svg></span>
+          <span class="label"><span class="title">Non-binary</span></span>
         </label>
 
-        <!-- Prefer not to say -->
-        <label class="option none" aria-label="Prefer not to say">
+        <label class="option none">
           <input type="radio" name="gender" value="none" />
-          <span class="dot" aria-hidden="true">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-              <path d="M8.19531 8.76498C8.42304 8.06326 8.84053 7.43829 9.40137 6.95899C9.96221 6.47968 10.6444 6.16501 11.373 6.0494C12.1017 5.9338 12.8486 6.02202 13.5303 6.3042C14.2119 6.58637 14.8016 7.05166 15.2354 7.64844C15.6691 8.24521 15.9295 8.95008 15.9875 9.68554C16.0455 10.421 15.8985 11.1581 15.5636 11.8154C15.2287 12.4728 14.7192 13.0251 14.0901 13.4106C13.4611 13.7961 12.7377 14.0002 12 14.0002V14.9998M12.0498 19V19.1L11.9502 19.1002V19H12.0498Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </span>
-          <span class="label">
-            <span class="title">Prefer not to say</span>
-          </span>
+          <span class="dot"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.19531 8.76498C8.42304 8.06326 8.84053 7.43829 9.40137 6.95899C12.1017 5.9338 12.8486 6.02202 13.5303 6.3042C15.9295 8.95008 15.9875 10.421 15.5636 11.8154C13.4611 13.7961 12.7377 14.0002 12 14.0002V14.9998" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+          <span class="label"><span class="title">Private</span></span>
         </label>
       </div>
     </fieldset>
