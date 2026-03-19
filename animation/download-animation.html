@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Download Animation</title>
+    <style>
+        /* Centering and Background */
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #000;
+            font-family: Arial, sans-serif;
+        }
+
+        .label {
+            background-color: transparent;
+            border: 2px solid rgb(91, 91, 240);
+            display: flex;
+            align-items: center;
+            border-radius: 50px;
+            width: 160px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            padding: 5px;
+            position: relative;
+            overflow: hidden; /* Keeps the loading fill contained */
+        }
+
+        /* Hover effect to show it's clickable */
+        .label:hover {
+            background-color: rgba(91, 91, 240, 0.1);
+        }
+
+        .input {
+            display: none;
+        }
+
+        .title {
+            font-size: 17px;
+            color: #fff;
+            transition: all 0.4s ease;
+            position: absolute;
+            right: 18px;
+            bottom: 14px;
+            margin: 0;
+        }
+
+        .title:last-child {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .circle {
+            height: 45px;
+            width: 45px;
+            border-radius: 50%;
+            background-color: rgb(91, 91, 240);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.4s ease;
+            position: relative;
+            z-index: 2;
+        }
+
+        .icon {
+            color: #fff;
+            width: 30px;
+            transition: all 0.4s ease;
+        }
+
+        .square {
+            width: 15px;
+            height: 15px;
+            background-color: #fff;
+            opacity: 0;
+            position: absolute;
+            transition: all 0.4s ease;
+        }
+
+        /* Loading Fill Animation */
+        .circle::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            background-color: #3333a8;
+            width: 100%;
+            height: 0;
+            transition: all 0.4s ease;
+        }
+
+        /* CLICKED STATE ANIMATIONS */
+        .label:has(.input:checked) {
+            width: 57px;
+            animation: installed 0.4s ease 3.5s forwards;
+        }
+
+        .input:checked + .circle {
+            animation: pulse 1s forwards, circleDelete 0.2s ease 3.5s forwards;
+            transform: rotate(180deg);
+        }
+
+        .input:checked + .circle::before {
+            animation: installing 3s ease-in-out forwards;
+        }
+
+        .input:checked + .circle .icon {
+            opacity: 0;
+        }
+
+        .input:checked + .circle .square {
+            opacity: 1;
+        }
+
+        .input:checked ~ .title:nth-child(3) {
+            opacity: 0;
+        }
+
+        .input:checked ~ .title:last-child {
+            animation: showInstalledMessage 0.4s ease 3.5s forwards;
+        }
+
+        /* KEYFRAMES */
+        @keyframes installing {
+            from { height: 0; }
+            to { height: 100%; }
+        }
+
+        @keyframes pulse {
+            0% { scale: 0.95; box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7); }
+            70% { scale: 1; box-shadow: 0 0 0 16px rgba(255, 255, 255, 0); }
+            100% { scale: 0.95; box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+        }
+
+        @keyframes installed {
+            100% { width: 150px; border-color: rgb(35, 174, 35); }
+        }
+
+        @keyframes circleDelete {
+            100% { opacity: 0; visibility: hidden; }
+        }
+
+        @keyframes showInstalledMessage {
+            100% { opacity: 1; visibility: visible; right: 56px; }
+        }
+    </style>
+</head>
+<body>
+
+    <label class="label">
+        <input type="checkbox" class="input" />
+        <span class="circle">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 19V5m0 14-4-4m4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <div class="square"></div>
+        </span>
+        <p class="title">Download</p>
+        <p class="title">Open</p>
+    </label>
+
+</body>
+</html>
