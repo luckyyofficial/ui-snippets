@@ -1,87 +1,142 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Volume Key</title>
-</head>
+<title>Advanced Volume Slider</title>
+
 <style>
-    
-/* level settings 👇 */
-
-.slider {
-  /* slider */
-  --slider-width: 100%;
-  --slider-height: 6px;
-  --slider-bg: rgb(82, 82, 82);
-  --slider-border-radius: 999px;
-  /* level */
-  --level-color: #fff;
-  --level-transition-duration: .1s;
-  /* icon */
-  --icon-margin: 15px;
-  --icon-color: var(--slider-bg);
-  --icon-size: 25px;
-}
-
-.slider {
-  cursor: pointer;
-  display: -webkit-inline-box;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: reverse;
-  -ms-flex-direction: row-reverse;
-  flex-direction: row-reverse;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
   align-items: center;
+  margin: 0;
+  background: #050505;
+  font-family: 'Segoe UI', Arial, sans-serif;
 }
 
-.slider .volume {
-  display: inline-block;
-  vertical-align: top;
-  margin-right: var(--icon-margin);
-  color: var(--icon-color);
-  width: var(--icon-size);
-  height: auto;
+.container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: #111;
+  padding: 15px 25px;
+  border-radius: 50px; /* Pill shape looks more modern */
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  transition: transform 0.2s;
 }
 
-.slider .level {
+.container:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 25px rgba(255,255,255,0.05);
+}
+
+/* Slider Container */
+.slider-wrapper {
+  display: flex;
+  align-items: center;
+  width: 200px;
+}
+
+/* Range Input Styling */
+.level {
   -webkit-appearance: none;
-  -moz-appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 5px;
+  /* This creates the 'filled' look dynamically via JS */
+  background: linear-gradient(to right, #fff 50%, #444 50%);
+  outline: none;
+  cursor: pointer;
+  transition: height 0.2s;
+}
+
+.level:hover {
+  height: 8px;
+}
+
+/* The Thumb (The knob you grab) */
+.level::-webkit-slider-thumb {
+  -webkit-appearance: none;
   appearance: none;
-  width: var(--slider-width);
-  height: var(--slider-height);
-  background: var(--slider-bg);
-  overflow: hidden;
-  border-radius: var(--slider-border-radius);
-  -webkit-transition: height var(--level-transition-duration);
-  -o-transition: height var(--level-transition-duration);
-  transition: height var(--level-transition-duration);
-  cursor: inherit;
+  width: 16px;
+  height: 16px;
+  background: #fff;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
 }
 
-.slider .level::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  width: 0;
-  height: 0;
-  -webkit-box-shadow: -200px 0 0 200px var(--level-color);
-  box-shadow: -200px 0 0 200px var(--level-color);
+.level::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  background: #fff;
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
 }
 
-.slider:hover .level {
-  height: calc(var(--slider-height) * 2);
+/* Icon and Text */
+.volume-icon {
+  width: 24px;
+  height: 24px;
+  fill: #fff;
+  opacity: 0.7;
+}
+
+.value {
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  min-width: 45px;
 }
 </style>
+</head>
 <body>
-    
-<label class="slider">
-      <input type="range" class="level">
-      <svg class="volume" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="512" height="512" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve">
-          <g>
-              <path d="M18.36 19.36a1 1 0 0 1-.705-1.71C19.167 16.148 20 14.142 20 12s-.833-4.148-2.345-5.65a1 1 0 1 1 1.41-1.419C20.958 6.812 22 9.322 22 12s-1.042 5.188-2.935 7.069a.997.997 0 0 1-.705.291z" fill="currentColor" data-original="#000000"></path>
-              <path d="M15.53 16.53a.999.999 0 0 1-.703-1.711C15.572 14.082 16 13.054 16 12s-.428-2.082-1.173-2.819a1 1 0 1 1 1.406-1.422A6 6 0 0 1 18 12a6 6 0 0 1-1.767 4.241.996.996 0 0 1-.703.289zM12 22a1 1 0 0 1-.707-.293L6.586 17H4c-1.103 0-2-.897-2-2V9c0-1.103.897-2 2-2h2.586l4.707-4.707A.998.998 0 0 1 13 3v18a1 1 0 0 1-1 1z" fill="currentColor" data-original="#000000"></path>
-          </g>
-      </svg>
-  </label>
+
+<div class="container">
+  <div id="icon-container">
+    <svg class="volume-icon" viewBox="0 0 24 24" id="speaker-icon">
+      <path d="M14,3.23V5.29C16.89,6.15 19,8.83 19,12C19,15.17 16.89,17.85 14,18.71V20.77C18.03,19.86 21,16.28 21,12C21,7.72 18.03,4.14 14,3.23M16.5,12C16.5,10.23 15.5,8.71 14,7.97V16.02C15.5,15.29 16.5,13.77 16.5,12M3,9V15H7L12,20V4L7,9H3Z" />
+    </svg>
+  </div>
+
+  <div class="slider-wrapper">
+    <input type="range" min="0" max="100" value="50" class="level" id="range">
+  </div>
+
+  <div class="value" id="value">50%</div>
+</div>
+
+<script>
+const range = document.getElementById("range");
+const valueText = document.getElementById("value");
+const icon = document.getElementById("speaker-icon");
+
+function updateSlider() {
+  const val = range.value;
+  
+  // 1. Update the Text
+  valueText.textContent = val + "%";
+  
+  // 2. Update the Progress Background color
+  // Syntax: linear-gradient(to right, color-filled %, color-empty %)
+  range.style.background = `linear-gradient(to right, #fff ${val}%, #444 ${val}%)`;
+  
+  // 3. (Optional) Change Icon based on volume
+  if (val == 0) {
+    icon.style.opacity = "0.3";
+  } else if (val < 50) {
+    icon.style.opacity = "0.6";
+  } else {
+    icon.style.opacity = "1";
+  }
+}
+
+range.addEventListener("input", updateSlider);
+
+// Run once on load to set initial gradient
+updateSlider();
+</script>
+
 </body>
 </html>
