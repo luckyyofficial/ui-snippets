@@ -3,107 +3,147 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mute - Unmute Button</title>
+    <title>Modern Mute Toggle</title>
+    <style>
+        /* 1. Page Layout & Centering */
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f0f2f5; /* Soft light grey background */
+            font-family: sans-serif;
+        }
+
+        /* Container to handle sizing */
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        /* 2. Hide default checkbox */
+        #checkboxInput {
+            display: none;
+        }
+
+        /* 3. The Toggle Switch (The Button) */
+        .toggleSwitch {
+            width: 70px;
+            height: 70px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #ffffff;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            /* Soft light-theme shadow */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05),
+                        0 6px 6px rgba(0, 0, 0, 0.05),
+                        inset 0 -2px 5px rgba(0,0,0,0.02);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+        }
+
+        /* Icon Container Styling */
+        .speaker, .mute-speaker {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .speaker svg, .mute-speaker svg {
+            width: 28px;
+            height: 28px;
+        }
+
+        /* Unmuted State (Default) */
+        .speaker {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .speaker path {
+            stroke: #7c3aed; /* Vibrant purple accent */
+            fill: #7c3aed;
+        }
+
+        /* Muted State (Initial) */
+        .mute-speaker {
+            opacity: 0;
+            transform: scale(0.5) rotate(-45deg);
+        }
+
+        .mute-speaker path {
+            stroke: #64748b; /* Muted slate grey */
+            fill: #64748b;
+        }
+
+        /* --- TOGGLE LOGIC --- */
+
+        /* When Checked (Muted) */
+        #checkboxInput:checked + .toggleSwitch {
+            background-color: #f8fafc;
+            box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+
+        #checkboxInput:checked + .toggleSwitch .speaker {
+            opacity: 0;
+            transform: scale(0.5) rotate(45deg);
+        }
+
+        #checkboxInput:checked + .toggleSwitch .mute-speaker {
+            opacity: 1;
+            transform: scale(1) rotate(0deg);
+        }
+
+        /* Interaction Effects */
+        .toggleSwitch:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .toggleSwitch:active {
+            transform: scale(0.92);
+        }
+
+        /* Label Text Styling */
+        .status-text {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+    </style>
 </head>
-<style>
-    
-/* The switch - the box around the speaker*/
-.toggleSwitch {
-  width: 50px;
-  height: 50px;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: rgb(39, 39, 39);
-  border-radius: 50%;
-  cursor: pointer;
-  transition-duration: .3s;
-  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.13);
-  overflow: hidden;
-}
-
-/* Hide default HTML checkbox */
-#checkboxInput {
-  display: none;
-}
-
-.bell {
-  width: 18px;
-}
-
-.bell path {
-  fill: white;
-}
-
-.speaker {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 2;
-  transition-duration: .3s;
-}
-
-.speaker svg {
-  width: 18px;
-}
-
-.mute-speaker {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  z-index: 3;
-  transition-duration: .3s;
-}
-
-.mute-speaker svg {
-  width: 18px;
-}
-
-#checkboxInput:checked +.toggleSwitch .speaker {
-  opacity: 0;
-  transition-duration: .3s;
-}
-
-#checkboxInput:checked +.toggleSwitch .mute-speaker {
-  opacity: 1;
-  transition-duration: .3s;
-}
-
-#checkboxInput:active + .toggleSwitch {
-  transform: scale(0.7);
-}
-
-#checkboxInput:hover + .toggleSwitch {
-  background-color: rgb(61, 61, 61);
-}
-</style>
 <body>
-    
-<input type="checkbox" id="checkboxInput">
-    <label for="checkboxInput" class="toggleSwitch">
 
-<div class="speaker"><svg xmlns="http://www.w3.org/2000/svg" version="1.0" viewBox="0 0 75 75">
-<path d="M39.389,13.769 L22.235,28.606 L6,28.606 L6,47.699 L21.989,47.699 L39.389,62.75 L39.389,13.769z" style="stroke:#fff;stroke-width:5;stroke-linejoin:round;fill:#fff;"></path>
-<path d="M48,27.6a19.5,19.5 0 0 1 0,21.4M55.1,20.5a30,30 0 0 1 0,35.6M61.6,14a38.8,38.8 0 0 1 0,48.6" style="fill:none;stroke:#fff;stroke-width:5;stroke-linecap:round"></path>
-</svg></div>
+    <div class="container">
+        <input type="checkbox" id="checkboxInput">
+        <label for="checkboxInput" class="toggleSwitch">
+            
+            <div class="speaker">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 75 75">
+                    <path d="M39.389,13.769 L22.235,28.606 L6,28.606 L6,47.699 L21.989,47.699 L39.389,62.75 L39.389,13.769z" stroke-width="5" stroke-linejoin="round"></path>
+                    <path d="M48,27.6a19.5,19.5 0 0 1 0,21.4M55.1,20.5a30,30 0 0 1 0,35.6M61.6,14a38.8,38.8 0 0 1 0,48.6" style="fill:none;stroke-width:5;stroke-linecap:round"></path>
+                </svg>
+            </div>
 
-<div class="mute-speaker"><svg version="1.0" viewBox="0 0 75 75" stroke="#fff" stroke-width="5">
-<path d="m39,14-17,15H6V48H22l17,15z" fill="#fff" stroke-linejoin="round"></path>
-<path d="m49,26 20,24m0-24-20,24" fill="#fff" stroke-linecap="round"></path>
-</svg></div>
-
-    </label>
-
-
-
-
+            <div class="mute-speaker">
+                <svg viewBox="0 0 75 75" stroke-width="5">
+                    <path d="m39,14-17,15H6V48H22l17,15z" stroke-linejoin="round"></path>
+                    <path d="m49,26 20,24m0-24-20,24" stroke-linecap="round"></path>
+                </svg>
+            </div>
+        </label>
+        <span class="status-text">Tap to Mute</span>
+    </div>
 
 </body>
 </html>
