@@ -3,26 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lightning Button Animation</title>
+    <title>Centered Lightning Button</title>
     <style>
-        /* Centering Logic & Light Theme Background */
+        /* Centering Logic */
         body {
             margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            /* A soft light gradient makes the glow feel more natural */
-            background: radial-gradient(circle at center, #ffffff 0%, #f0f4f8 100%);
+            /* Light background to contrast the purple glow */
+            background-color: #fcfcfc; 
             font-family: sans-serif;
         }
 
         button {
-            /* Light Theme Variables - Electric Blue */
-            --glow-color: rgb(0, 123, 255);
-            --glow-spread-color: rgba(0, 140, 255, 0.3);
-            --enhanced-glow-color: rgb(180, 210, 255);
-            --btn-color: rgb(255, 255, 255);
+            /* Your Original Purple Colors */
+            --glow-color: rgb(217, 176, 255);
+            --glow-spread-color: rgba(191, 123, 255, 0.781);
+            --enhanced-glow-color: rgb(231, 206, 255);
+            --btn-color: rgb(100, 61, 136);
             
             border: .25em solid var(--glow-color);
             padding: 1em 3em;
@@ -33,50 +33,50 @@
             border-radius: 1em;
             outline: none;
             cursor: pointer;
-            
-            /* Outer glow and inner glow */
-            box-shadow: 0 0 1em .1em var(--glow-color),
-                        0 0 2em .2em var(--glow-spread-color),
-                        inset 0 0 .5em .1em var(--glow-color);
-            
-            text-shadow: 0 0 .3em var(--glow-spread-color);
             position: relative;
             transition: all 0.3s;
+
+            /* Original Box Shadows */
+            box-shadow: 0 0 1em .25em var(--glow-color),
+                        0 0 4em 1em var(--glow-spread-color),
+                        inset 0 0 .75em .25em var(--glow-color);
+            text-shadow: 0 0 .5em var(--glow-color);
         }
 
-        /* The Reflection/Shadow underneath */
+        /* Reflection Effect */
         button::after {
             pointer-events: none;
             content: "";
             position: absolute;
-            top: 125%;
+            top: 120%;
             left: 0;
             height: 100%;
             width: 100%;
-            background-color: var(--glow-color);
-            filter: blur(1.5em);
-            opacity: .15; /* Lower opacity for light theme */
+            background-color: var(--glow-spread-color);
+            filter: blur(2em);
+            opacity: .7;
             transform: perspective(1.5em) rotateX(35deg) scale(1, .6);
         }
 
         button:hover {
-            color: white;
+            color: var(--btn-color);
             background-color: var(--glow-color);
-            box-shadow: 0 0 1em .3em var(--glow-color),
-                        0 0 4em 1.5em var(--glow-spread-color),
+            box-shadow: 0 0 1em .25em var(--glow-color),
+                        0 0 4em 2em var(--glow-spread-color),
                         inset 0 0 .75em .25em var(--glow-color);
         }
 
         button:active {
-            transform: scale(0.95);
-            box-shadow: 0 0 0.5em .2em var(--glow-color),
-                        0 0 1.5em 1em var(--glow-spread-color);
+            box-shadow: 0 0 0.6em .25em var(--glow-color),
+                        0 0 2.5em 2em var(--glow-spread-color),
+                        inset 0 0 .5em .25em var(--glow-color);
+            transform: translateY(2px);
         }
     </style>
 </head>
 <body>
      
-<button>LIGHTNING</button>
+<button>Button</button>
 
 </body>
 </html>
