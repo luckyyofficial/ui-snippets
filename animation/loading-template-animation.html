@@ -1,74 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Loading Template Animation</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centred Loading Template</title>
+    <style>
+        /* Modern centering using Flexbox on the parent container */
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center; /* Horizontal centering */
+            align-items: center;     /* Vertical centering */
+            min-height: 100vh;       /* Full viewport height */
+            background-color: #f5f5f5;
+        }
+
+        .card {
+            width: 190px;
+            height: 90px;
+            background: #ffffff;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            padding: 12px 10px;
+            border-radius: 8px;
+            display: flex; /* Use flex inside the card for alignment */
+            gap: 10px;
+        }
+
+        /* The skeleton loading effect */
+        .card_load, 
+        .card_load_extreme_title, 
+        .card_load_extreme_descripion {
+            background: linear-gradient(120deg, #e5e5e5 30%, #f0f0f0 38%, #f0f0f0 40%, #e5e5e5 48%);
+            background-size: 200% 100%;
+            background-position: 100% 0;
+            animation: load89234 1.5s infinite linear;
+        }
+
+        .card_load {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        /* Container for title and description */
+        .card_content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .card_load_extreme_title {
+            width: 100%;
+            height: 12px;
+            border-radius: 5px;
+        }
+
+        .card_load_extreme_descripion {
+            width: 100%;
+            height: 50px;
+            border-radius: 5px;
+        }
+
+        @keyframes load89234 {
+            to {
+                background-position: -100% 0;
+            }
+        }
+    </style>
 </head>
-<style>
-    
-.card {
-  width: 190px;
-  height: 90px;
-  background: #ffff;
-  box-shadow: 0 1px 25px rgba(0,0,0,0.2);
-  position: absolute;
-  transform: translate(-50%, -50%);
-  top: 50%;
-  left: 50%;
-  padding: 12px 10px;
-}
-
-.card_load {
-  width: 70px;
-  height: 70px;
-  position: relative;
-  float: left;
-  background: linear-gradient(120deg, #e5e5e5 30%, #f0f0f0 38%, #f0f0f0 
-  40%, #e5e5e5 48%);
-  border-radius: 50%;
-  background-size: 200% 100%;
-  background-position: 100% 0;
-  animation: load89234 2s infinite;
-}
-
-.card_load_extreme_title {
-  width: 90px;
-  height: 10px;
-  position: relative;
-  float: right;
-  border-radius: 5px;
-  background: linear-gradient(120deg, #e5e5e5 30%, #f0f0f0 38%, #f0f0f0 
-  40%, #e5e5e5 48%);
-  background-size: 200% 100%;
-  background-position: 100% 0;
-  animation: load89234 2s infinite;
-}
-
-.card_load_extreme_descripion {
-  width: 90px;
-  height: 47px;
-  position: relative;
-  float: right;
-  border-radius: 5px;
-  background: linear-gradient(120deg, #e5e5e5 30%, #f0f0f0 38%, #f0f0f0 
-  40%, #e5e5e5 48%);
-  margin-top: 10px;
-  background-size: 200% 100%;
-  background-position: 100% 0;
-  animation: load89234 2s infinite;
-}
-
-@keyframes load89234 {
-  100% {
-    background-position: -100% 0;
-  }
-}
-</style>
 <body>
 
 <div class="card">
     <div class="card_load"></div>
-    <div class="card_load_extreme_title"></div>
-    <div class="card_load_extreme_descripion"></div>
+    <div class="card_content">
+        <div class="card_load_extreme_title"></div>
+        <div class="card_load_extreme_descripion"></div>
+    </div>
 </div>
+
 </body>
 </html>
