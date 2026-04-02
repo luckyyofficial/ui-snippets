@@ -5,19 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Centered Notification Animation</title>
     <style>
-        /* Centering Logic */
+        /* Modern Centering Logic */
         body {
             margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background-color: #f8f9fa;
+            background-color: #ffffff; /* Clean light background */
         }
 
         .container {
-            --color: #6366f1; /* Using a vibrant indigo */
-            --size: 50px;
+            /* Your Original Grey Color */
+            --color: #a5a5b0;
+            --size: 40px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -26,16 +27,10 @@
             font-size: var(--size);
             user-select: none;
             fill: var(--color);
-            padding: 20px;
-            border-radius: 50%;
-            transition: background-color 0.3s;
+            padding: 10px;
         }
 
-        .container:hover {
-            background-color: rgba(99, 102, 241, 0.1);
-        }
-
-        /* Standardize SVG positioning */
+        /* SVG Sizing and Absolute Overlay */
         .container svg {
             position: absolute;
             width: 1em;
@@ -50,23 +45,22 @@
             display: none;
         }
 
-        /* ------ On check event ------ */
+        /* ------ Toggle Logic ------ */
         .container input:checked ~ .bell-regular {
             display: none;
         }
 
         .container input:checked ~ .bell-solid {
             display: block;
-            /* Animation triggers when checked */
             animation: keyframes-fill .5s ease-in-out;
         }
 
-        /* Animation triggers when unchecked too for a better feel */
+        /* Ringing effect when unchecking too */
         .container input:not(:checked) ~ .bell-regular {
             animation: keyframes-fill .5s ease-in-out;
         }
 
-        /* Hide the checkbox */
+        /* Hide Default Checkbox */
         .container input {
             position: absolute;
             opacity: 0;
@@ -75,13 +69,25 @@
             width: 0;
         }
 
-        /* ------ Bell Ringing Animation ------ */
+        /* ------ The Animation ------ */
         @keyframes keyframes-fill {
-            0% { transform: rotate(0deg); scale: 1; }
-            25% { transform: rotate(25deg); }
-            50% { transform: rotate(-20deg) scale(1.1); }
-            75% { transform: rotate(15deg); }
-            100% { transform: rotate(0deg); scale: 1; }
+            0% {
+                opacity: 0;
+                transform: rotate(0deg);
+            }
+            25% {
+                transform: rotate(25deg);
+            }
+            50% {
+                transform: rotate(-20deg) scale(1.2);
+                opacity: 1;
+            }
+            75% {
+                transform: rotate(15deg);
+            }
+            100% {
+                transform: rotate(0deg);
+            }
         }
     </style>
 </head>
