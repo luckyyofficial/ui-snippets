@@ -1,76 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Circle Pattern</title>
-</head>
-<style>
-    
-.container {
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(
-      50% 50% at 100% 0,
-      #ca3f3f 0% 5%,
-      #ffffff 6% 15%,
-      #ca3f3f 16% 25%,
-      #ffffff 26% 35%,
-      #ca3f3f 36% 45%,
-      #ffffff 46% 55%,
-      #ca3f3f 56% 65%,
-      #ffffff 66% 75%,
-      #ca3f3f 76% 85%,
-      #ffffff 86% 95%,
-      #0000 96%
-    ),
-    radial-gradient(
-      50% 50% at 0 100%,
-      #ca3f3f 0% 5%,
-      #ffffff 6% 15%,
-      #ca3f3f 16% 25%,
-      #ffffff 26% 35%,
-      #ca3f3f 36% 45%,
-      #ffffff 46% 55%,
-      #ca3f3f 56% 65%,
-      #ffffff 66% 75%,
-      #ca3f3f 76% 85%,
-      #ffffff 86% 95%,
-      #0000 96%
-    ),
-    radial-gradient(
-      50% 50%,
-      #ca3f3f 0% 5%,
-      #ffffff 6% 15%,
-      #ca3f3f 16% 25%,
-      #ffffff 26% 35%,
-      #ca3f3f 36% 45%,
-      #ffffff 46% 55%,
-      #ca3f3f 56% 65%,
-      #ffffff 66% 75%,
-      #ca3f3f 76% 85%,
-      #ffffff 86% 95%,
-      #0000 96%
-    ),
-    radial-gradient(
-        50% 50%,
-        #ca3f3f 0% 5%,
-        #ffffff 6% 15%,
-        #ca3f3f 16% 25%,
-        #ffffff 26% 35%,
-        #ca3f3f 36% 45%,
-        #ffffff 46% 55%,
-        #ca3f3f 56% 65%,
-        #ffffff 66% 75%,
-        #ca3f3f 76% 85%,
-        #ffffff 86% 95%,
-        #0000 96%
-      )
-      38px 38px;
-  background-size: 76px 76px;
-  background-color: #ca3f3f;
-}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visible Circle Pattern</title>
+    <style>
+        /* Reset margin and set base height */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            overflow: hidden; /* Prevents scrollbars */
+        }
 
-</style>
+        .container {
+            width: 100%;
+            height: 100vh; /* Fills the browser height */
+            background-color: #ca3f3f;
+            
+            /* Layered radial gradients for the complex circle pattern */
+            background-image: 
+                radial-gradient(50% 50% at 100% 0, #ca3f3f 0% 5%, #ffffff 6% 15%, #ca3f3f 16% 25%, #ffffff 26% 35%, #ca3f3f 36% 45%, #ffffff 46% 55%, #ca3f3f 56% 65%, #ffffff 66% 75%, #ca3f3f 76% 85%, #ffffff 86% 95%, #0000 96%),
+                radial-gradient(50% 50% at 0 100%, #ca3f3f 0% 5%, #ffffff 6% 15%, #ca3f3f 16% 25%, #ffffff 26% 35%, #ca3f3f 36% 45%, #ffffff 46% 55%, #ca3f3f 56% 65%, #ffffff 66% 75%, #ca3f3f 76% 85%, #ffffff 86% 95%, #0000 96%),
+                radial-gradient(50% 50%, #ca3f3f 0% 5%, #ffffff 6% 15%, #ca3f3f 16% 25%, #ffffff 26% 35%, #ca3f3f 36% 45%, #ffffff 46% 55%, #ca3f3f 56% 65%, #ffffff 66% 75%, #ca3f3f 76% 85%, #ffffff 86% 95%, #0000 96%),
+                radial-gradient(50% 50%, #ca3f3f 0% 5%, #ffffff 6% 15%, #ca3f3f 16% 25%, #ffffff 26% 35%, #ca3f3f 36% 45%, #ffffff 46% 55%, #ca3f3f 56% 65%, #ffffff 66% 75%, #ca3f3f 76% 85%, #ffffff 86% 95%, #0000 96%);
+            
+            /* Sizing and Offsetting the layers */
+            background-size: 76px 76px;
+            background-position: 0 0, 0 0, 0 0, 38px 38px;
+        }
+    </style>
+</head>
 <body>
-    
+
+    <div class="container"></div>
+
 </body>
 </html>
