@@ -1,41 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Old Search Box</title>
+    <meta charset="UTF-8">
+    <title>Modern Dark Search</title>
+    <style>
+        /* Centering the content and setting the black theme */
+        body {
+            background-color: #121212; /* Deep black/grey background */
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Takes up full viewport height */
+        }
+
+        .input {
+            background-color: #383838;
+            border: 1ex solid transparent;
+            border-top-width: 1.7em;
+            margin: 0;
+            padding: 5px;
+            /* Changed color to white so you can see what you type */
+            color: #ffffff; 
+            word-wrap: break-word;
+            outline: 7px solid #383838;
+            height: 30px;
+            font-size: 17px;
+            text-align: center;
+            transition: all 0.5s; /* Slightly faster transition for feel */
+            max-width: 190px;
+            font-weight: bold;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .input::placeholder {
+            color: #888; /* Dimmer placeholder text */
+        }
+
+        .input:hover, .input:focus {
+            border-top-width: 0.2em;
+            background-color: #f1e8e8;
+            color: #383838; /* Dark text when background turns light */
+            outline: 7px solid #f1e8e8;
+        }
+
+        /* Removes the default blue highlight on focus */
+        .input:focus {
+            outline: 7px solid #f1e8e8;
+        }
+    </style>
 </head>
-<style>
-    
-.input {
- background-color: #383838;
- border: 1ex solid none;
- border-top-width: 1.7em;
- margin: 0;
- padding: 0;
- color: #383838;
- word-wrap: break-word;
- outline: 7px solid #383838;
- height: 30px;
- font-size: 17px;
- text-align: center;
- transition: all 1s;
- max-width: 190px;
- font-weight: bold;
- font-family: 'Courier New', Courier, monospace;
-}
-
-.input:hover {
- border-top-width: 0.2em;
- background-color: #f1e8e8;
-}
-
-.input:focus {
- border-top-width: 0.2em;
- background-color: #f1e8e8;
-}
-</style>
 <body>
-    
 
-<input type="text" name="text" class="input" placeholder="Type your text">
+    <input type="text" name="text" class="input" placeholder="Type your text">
+
 </body>
 </html>
