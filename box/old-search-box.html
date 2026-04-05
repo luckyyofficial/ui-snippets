@@ -2,57 +2,68 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Modern Dark Search</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centered Dark Search</title>
     <style>
-        /* Centering the content and setting the black theme */
+        /* 1. Centering the container on a black background */
         body {
-            background-color: #121212; /* Deep black/grey background */
+            background-color: #000000; /* Pure black theme */
             margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh; /* Takes up full viewport height */
-        }
-
-        .input {
-            background-color: #383838;
-            border: 1ex solid transparent;
-            border-top-width: 1.7em;
-            margin: 0;
-            padding: 5px;
-            /* Changed color to white so you can see what you type */
-            color: #ffffff; 
-            word-wrap: break-word;
-            outline: 7px solid #383838;
-            height: 30px;
-            font-size: 17px;
-            text-align: center;
-            transition: all 0.5s; /* Slightly faster transition for feel */
-            max-width: 190px;
-            font-weight: bold;
+            height: 100vh;
             font-family: 'Courier New', Courier, monospace;
         }
 
-        .input::placeholder {
-            color: #888; /* Dimmer placeholder text */
+        /* 2. The Search Box Logic */
+        .input {
+            background-color: #1a1a1a; /* Darker grey box */
+            
+            /* Borders: Changed 'none' to 'solid' to make them visible */
+            border: 2px solid #444; 
+            border-top-width: 1.7em; /* The unique thick top style */
+            
+            margin: 0;
+            padding: 5px;
+            color: #ffffff; /* White text so you can see typing */
+            word-wrap: break-word;
+            
+            /* Outline: Helps define the shape against the black background */
+            outline: 3px solid #333;
+            
+            height: 35px;
+            font-size: 17px;
+            text-align: center;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            max-width: 200px;
+            font-weight: bold;
+            cursor: pointer;
         }
 
+        /* 3. Hover & Focus States */
         .input:hover, .input:focus {
+            /* Flattens the top border */
             border-top-width: 0.2em;
+            border-color: #f1e8e8;
+            
+            /* Flips to light theme colors for interaction */
             background-color: #f1e8e8;
-            color: #383838; /* Dark text when background turns light */
-            outline: 7px solid #f1e8e8;
+            color: #000000;
+            
+            /* Glow effect */
+            outline: 8px solid #222;
         }
 
-        /* Removes the default blue highlight on focus */
-        .input:focus {
-            outline: 7px solid #f1e8e8;
+        /* Styling the placeholder text specifically */
+        .input::placeholder {
+            color: #666;
         }
     </style>
 </head>
 <body>
 
-    <input type="text" name="text" class="input" placeholder="Type your text">
+    <input type="text" name="text" class="input" placeholder="Search...">
 
 </body>
 </html>
