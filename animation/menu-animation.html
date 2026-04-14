@@ -3,179 +3,141 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menu Animation</title>
+    <title>Menu Animation - Light Theme</title>
 </head>
 <style>
-    
-.main > .inp {
-  display: none;
-}
-.main {
-  font-weight: 800;
-  color: white;
-  background-color: darkviolet;
-  padding: 3px 15px;
-  border-radius: 10px;
+    /* 1. Centering on the screen */
+    body {
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #f8f9fa; /* Light gray background */
+        font-family: 'Segoe UI', sans-serif;
+    }
 
-  display: flex;
-  align-items: center;
-  height: 2.5rem;
-  width: 12rem;
-  position: relative;
-  cursor: pointer;
-  justify-content: space-between;
-}
+    .main > .inp {
+        display: none;
+    }
 
-.arrow {
-  height: 34%;
-  aspect-ratio: 1;
-  margin-block: auto;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  transition: all 0.3s;
-}
+    .main {
+        font-weight: 700;
+        color: #444; /* Darker text for light theme */
+        background-color: #ffffff;
+        padding: 5px 20px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        height: 2.8rem;
+        width: 12rem;
+        position: relative;
+        cursor: pointer;
+        justify-content: space-between;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); /* Soft shadow */
+        transition: all 0.3s ease;
+    }
 
-.arrow::after,
-.arrow::before {
-  content: "";
-  position: absolute;
-  background-color: white;
-  height: 100%;
-  width: 2.5px;
-  border-radius: 500px;
-  transform-origin: bottom;
-}
+    .main:hover {
+        box-shadow: 0 6px 25px rgba(0, 0, 0, 0.12);
+    }
 
-.arrow::after {
-  transform: rotate(35deg) translateX(-0.5px);
-}
-.arrow::before {
-  transform: rotate(-35deg) translateX(0.5px);
-}
+    /* Hamburger Bars - Adjusted for Light Theme */
+    .bar {
+        display: flex;
+        height: 16px;
+        width: 22px;
+        flex-direction: column;
+        justify-content: space-between;
+    }
 
-.main > .inp:checked + .arrow {
-  transform: rotateX(180deg);
-}
+    .bar-list {
+        display: block;
+        width: 100%;
+        height: 3px;
+        border-radius: 50px;
+        background-color: #555; /* Gray bars */
+        transition: all 0.4s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+    }
 
-.menu-container {
-  background-color: white;
-  color: darkviolet;
-  border-radius: 10px;
-  position: absolute;
-  width: 100%;
-  left: 0;
-  top: 130%;
-  overflow: hidden;
-  clip-path: inset(0% 0% 0% 0% round 10px);
-  transition: all 0.4s;
-}
+    /* Hamburger to X Animation Logic */
+    .inp:checked ~ .bar > .top {
+        transform: translateY(6.5px) rotate(45deg);
+        background-color: #ff4757; /* Accent color when open */
+    }
 
-.menu-list {
-  --delay: 0.4s;
-  --trdelay: 0.15s;
-  padding: 8px 10px;
-  border-radius: inherit;
-  transition: background-color 0.2s 0s;
-  position: relative;
-  transform: translateY(30px);
-  opacity: 0;
-}
+    .inp:checked ~ .bar > .middle {
+        opacity: 0;
+        transform: translateX(-10px);
+    }
 
-.menu-list::after {
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  height: 1px;
-  background-color: rgba(0, 0, 0, 0.3);
-  width: 95%;
-}
+    .inp:checked ~ .bar > .bottom {
+        transform: translateY(-6.5px) rotate(-45deg);
+        background-color: #ff4757;
+    }
 
-.menu-list:hover {
-  background-color: rgb(223, 223, 223);
-}
+    /* Menu Container */
+    .menu-container {
+        background-color: white;
+        color: #333;
+        border-radius: 12px;
+        position: absolute;
+        width: 100%;
+        left: 0;
+        top: 120%;
+        overflow: hidden;
+        /* Animation properties */
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(10px);
+        transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        z-index: 10;
+    }
 
-.inp:checked ~ .menu-container {
-  clip-path: inset(10% 50% 90% 50% round 10px);
-}
+    .inp:checked ~ .menu-container {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
 
-.inp:not(:checked) ~ .menu-container .menu-list {
-  transform: translateY(0);
-  opacity: 1;
-}
+    /* Menu Items Animation */
+    .menu-list {
+        padding: 12px 15px;
+        transition: all 0.3s ease;
+        font-weight: 500;
+        border-bottom: 1px solid #f1f1f1;
+        opacity: 0;
+        transform: translateY(15px);
+    }
 
-.inp:not(:checked) ~ .menu-container .menu-list:nth-child(1) {
-  transition:
-    transform 0.4s var(--delay),
-    opacity 0.4s var(--delay);
-}
+    .menu-list:last-child {
+        border-bottom: none;
+    }
 
-.inp:not(:checked) ~ .menu-container .menu-list:nth-child(2) {
-  transition:
-    transform 0.4s calc(var(--delay) + (var(--trdelay) * 1)),
-    opacity 0.4s calc(var(--delay) + (var(--trdelay) * 1));
-}
+    .menu-list:hover {
+        background-color: #fff1f2;
+        color: #ff4757;
+        padding-left: 20px;
+    }
 
-.inp:not(:checked) ~ .menu-container .menu-list:nth-child(3) {
-  transition:
-    transform 0.4s calc(var(--delay) + (var(--trdelay) * 2)),
-    opacity 0.4s calc(var(--delay) + (var(--trdelay) * 2));
-}
+    /* Staggered entrance when menu is checked */
+    .inp:checked ~ .menu-container .menu-list {
+        opacity: 1;
+        transform: translateY(0);
+    }
 
-.inp:not(:checked) ~ .menu-container .menu-list:nth-child(4) {
-  transition:
-    transform 0.4s calc(var(--delay) + (var(--trdelay) * 3)),
-    opacity 0.4s calc(var(--delay) + (var(--trdelay) * 3));
-}
-
-.bar-inp {
-  -webkit-appearance: none;
-  display: none;
-  visibility: hidden;
-}
-
-.bar {
-  display: flex;
-  height: 50%;
-  width: 20px;
-  flex-direction: column;
-  gap: 3px;
-}
-
-.bar-list {
-  --transform: -25%;
-  display: block;
-  width: 100%;
-  height: 3px;
-  border-radius: 50px;
-  background-color: white;
-  transition: all 0.4s;
-  position: relative;
-}
-
-.inp:not(:checked) ~ .bar > .top {
-  transform-origin: top right;
-  transform: translateY(var(--transform)) rotate(-45deg);
-}
-
-.inp:not(:checked) ~ .bar > .middle {
-  transform: translateX(-50%);
-  opacity: 0;
-}
-
-.inp:not(:checked) ~ .bar > .bottom {
-  transform-origin: bottom right;
-  transform: translateY(calc(var(--transform) * -1)) rotate(45deg);
-}
+    .inp:checked ~ .menu-container .menu-list:nth-child(1) { transition-delay: 0.1s; }
+    .inp:checked ~ .menu-container .menu-list:nth-child(2) { transition-delay: 0.2s; }
+    .inp:checked ~ .menu-container .menu-list:nth-child(3) { transition-delay: 0.3s; }
+    .inp:checked ~ .menu-container .menu-list:nth-child(4) { transition-delay: 0.4s; }
 
 </style>
 <body>
     
 <label class="main">
   Menu
-  <input class="inp" checked="" type="checkbox" />
+  <input class="inp" type="checkbox" />
   <div class="bar">
     <span class="top bar-list"></span>
     <span class="middle bar-list"></span>
