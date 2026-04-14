@@ -3,187 +3,154 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Navbar Slide Options</title>
+    <title>Navbar Slide Options - Light Theme</title>
 </head>
 <style>
-    
+/* 1. Centering the component */
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f4f7f6; /* Soft light background */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
 .event-wrapper > .event-wrapper-inp {
-  display: none;
+    display: none;
 }
+
 .event-wrapper {
-  font-weight: 500;
-  color: white;
-  background-color: darkviolet;
-  padding: 3px 15px;
-  border-radius: 10px;
-
-  display: flex;
-  align-items: center;
-  height: 2.5rem;
-  width: fit-content;
-  position: relative;
-  cursor: pointer;
-  justify-content: space-between;
+    font-weight: 600;
+    color: #444; /* Darker text for light theme */
+    background-color: #ffffff;
+    padding: 3px 15px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    height: 2.8rem;
+    width: fit-content;
+    position: relative;
+    cursor: pointer;
+    justify-content: space-between;
+    /* Light theme shadow */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s;
 }
 
-.arrow {
-  height: 34%;
-  aspect-ratio: 1;
-  margin-block: auto;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  transition: all 0.3s;
-}
-
-.arrow::after,
-.arrow::before {
-  content: "";
-  position: absolute;
-  background-color: white;
-  height: 100%;
-  width: 2.5px;
-  border-radius: 500px;
-  transform-origin: bottom;
-}
-
-.arrow::after {
-  transform: rotate(35deg) translateX(-0.5px);
-}
-.arrow::before {
-  transform: rotate(-35deg) translateX(0.5px);
-}
-
-.event-wrapper > .event-wrapper-inp:checked + .arrow {
-  transform: rotateX(180deg);
-}
-
-.menu-container {
-  background-color: white;
-  color: darkviolet;
-  border-radius: 10px;
-  position: absolute;
-  width: 150px;
-  left: -100px;
-  top: 130%;
-  overflow: hidden;
-  clip-path: inset(0% 0% 0% 0% round 10px);
-  transition: all 0.4s;
-}
-
-.menu-list {
-  --delay: 0.4s;
-  --trdelay: 0.15s;
-  padding: 8px 10px;
-  border-radius: inherit;
-  transition: background-color 0.2s 0s;
-  position: relative;
-  transform: translateY(30px);
-  opacity: 0;
-}
-
-.menu-list::after {
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  height: 1px;
-  background-color: rgba(0, 0, 0, 0.3);
-  width: 95%;
-}
-
-.menu-list:hover {
-  background-color: rgb(223, 223, 223);
-}
-
-.event-wrapper-inp:checked ~ .menu-container {
-  clip-path: inset(10% 50% 90% 50% round 10px);
-}
-
-.event-wrapper-inp:not(:checked) ~ .menu-container .menu-list {
-  transform: translateY(0);
-  opacity: 1;
-}
-
-.event-wrapper-inp:not(:checked) ~ .menu-container .menu-list:nth-child(1) {
-  transition:
-    transform 0.4s var(--delay),
-    opacity 0.4s var(--delay);
-}
-
-.event-wrapper-inp:not(:checked) ~ .menu-container .menu-list:nth-child(2) {
-  transition:
-    transform 0.4s calc(var(--delay) + (var(--trdelay) * 1)),
-    opacity 0.4s calc(var(--delay) + (var(--trdelay) * 1));
-}
-
-.event-wrapper-inp:not(:checked) ~ .menu-container .menu-list:nth-child(3) {
-  transition:
-    transform 0.4s calc(var(--delay) + (var(--trdelay) * 2)),
-    opacity 0.4s calc(var(--delay) + (var(--trdelay) * 2));
-}
-
-.event-wrapper-inp:not(:checked) ~ .menu-container .menu-list:nth-child(4) {
-  transition:
-    transform 0.4s calc(var(--delay) + (var(--trdelay) * 3)),
-    opacity 0.4s calc(var(--delay) + (var(--trdelay) * 3));
-}
-
-.bar-event-wrapper-inp {
-  -webkit-appearance: none;
-  display: none;
-  visibility: hidden;
+.event-wrapper:active {
+    transform: scale(0.95);
 }
 
 .bar {
-  display: flex;
-  height: 50%;
-  width: 20px;
-  flex-direction: column;
-  gap: 3px;
+    display: flex;
+    height: 16px;
+    width: 22px;
+    flex-direction: column;
+    gap: 4px;
 }
 
 .bar-list {
-  --transform: -25%;
-  display: block;
-  width: 100%;
-  height: 3px;
-  border-radius: 50px;
-  background-color: white;
-  transition: all 0.4s;
-  position: relative;
+    --transform: -25%;
+    display: block;
+    width: 100%;
+    height: 3px;
+    border-radius: 50px;
+    background-color: #555; /* Dark bars for light background */
+    transition: all 0.4s cubic-bezier(0.075, 0.82, 0.165, 1);
+    position: relative;
 }
 
-.event-wrapper-inp:not(:checked) ~ .bar > .top {
-  transform-origin: top right;
-  transform: translateY(var(--transform)) rotate(-45deg);
+/* Menu logic */
+.menu-container {
+    background-color: white;
+    color: #333;
+    border-radius: 12px;
+    position: absolute;
+    width: 160px;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 130%;
+    overflow: hidden;
+    clip-path: inset(0% 0% 0% 0% round 12px);
+    transition: all 0.4s;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
 }
 
-.event-wrapper-inp:not(:checked) ~ .bar > .middle {
-  transform: translateX(-50%);
-  opacity: 0;
+.menu-list {
+    --delay: 0.2s;
+    --trdelay: 0.1s;
+    padding: 12px 15px;
+    font-size: 14px;
+    transition: background-color 0.2s;
+    position: relative;
+    transform: translateY(30px);
+    opacity: 0;
 }
 
-.event-wrapper-inp:not(:checked) ~ .bar > .bottom {
-  transform-origin: bottom right;
-  transform: translateY(calc(var(--transform) * -1)) rotate(45deg);
+.menu-list:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 1px;
+    background-color: rgba(0, 0, 0, 0.05);
+    width: 90%;
 }
+
+.menu-list:hover {
+    background-color: #f0f0f0;
+}
+
+/* Checked State - Opened */
+.event-wrapper-inp:checked ~ .menu-container {
+    clip-path: inset(0% 0% 0% 0% round 12px); /* Corrected from original to show menu */
+}
+
+/* Hamburger Animation */
+.event-wrapper-inp:checked ~ .bar > .top {
+    transform-origin: top right;
+    transform: translateY(4px) rotate(-45deg) scaleX(1.1);
+    background-color: #ff4757; /* Change color when active */
+}
+
+.event-wrapper-inp:checked ~ .bar > .middle {
+    transform: translateX(-20px);
+    opacity: 0;
+}
+
+.event-wrapper-inp:checked ~ .bar > .bottom {
+    transform-origin: bottom right;
+    transform: translateY(-4px) rotate(45deg) scaleX(1.1);
+    background-color: #ff4757;
+}
+
+/* Show menu items with staggered delay */
+.event-wrapper-inp:checked ~ .menu-container .menu-list {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.event-wrapper-inp:checked ~ .menu-container .menu-list:nth-child(1) { transition: transform 0.4s var(--delay), opacity 0.4s var(--delay); }
+.event-wrapper-inp:checked ~ .menu-container .menu-list:nth-child(2) { transition: transform 0.4s calc(var(--delay) + var(--trdelay)), opacity 0.4s calc(var(--delay) + var(--trdelay)); }
+.event-wrapper-inp:checked ~ .menu-container .menu-list:nth-child(3) { transition: transform 0.4s calc(var(--delay) + (var(--trdelay) * 2)), opacity 0.4s calc(var(--delay) + (var(--trdelay) * 2)); }
 
 </style>
 <body>
-    <!-- From Uiverse.io by jerome_5148 --> 
+
 <label class="event-wrapper">
-  <input type="checkbox" checked="" class="event-wrapper-inp" />
+  <input type="checkbox" class="event-wrapper-inp" />
   <div class="bar">
     <span class="top bar-list"></span>
     <span class="middle bar-list"></span>
     <span class="bottom bar-list"></span>
   </div>
   <section class="menu-container">
-    <div class="menu-list">Edit</div>
-    <div class="menu-list">Repost</div>
-    <div style="color:crimson;" class="menu-list">Delete</div>
+    <div class="menu-list">Edit Profile</div>
+    <div class="menu-list">Share Link</div>
+    <div style="color: #ff4757;" class="menu-list">Delete Account</div>
   </section>
 </label>
 
