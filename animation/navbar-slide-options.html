@@ -3,155 +3,127 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Navbar Slide Options - Light Theme</title>
+    <title>Fixed Navbar Animation</title>
 </head>
 <style>
-/* 1. Centering the component */
-body {
-    margin: 0;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #f4f7f6; /* Soft light background */
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
+    body {
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #f4f7f6;
+        font-family: sans-serif;
+    }
 
-.event-wrapper > .event-wrapper-inp {
-    display: none;
-}
+    .event-wrapper {
+        background-color: #ffffff;
+        padding: 10px 18px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        height: 2.5rem;
+        position: relative;
+        cursor: pointer;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    }
 
-.event-wrapper {
-    font-weight: 600;
-    color: #444; /* Darker text for light theme */
-    background-color: #ffffff;
-    padding: 3px 15px;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    height: 2.8rem;
-    width: fit-content;
-    position: relative;
-    cursor: pointer;
-    justify-content: space-between;
-    /* Light theme shadow */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-    transition: transform 0.2s;
-}
+    .event-wrapper-inp {
+        display: none;
+    }
 
-.event-wrapper:active {
-    transform: scale(0.95);
-}
+    /* Bar Container */
+    .bar {
+        display: flex;
+        height: 16px;
+        width: 22px;
+        flex-direction: column;
+        justify-content: space-between; /* Evenly spaces the 3 lines */
+        transition: all 0.4s;
+    }
 
-.bar {
-    display: flex;
-    height: 16px;
-    width: 22px;
-    flex-direction: column;
-    gap: 4px;
-}
+    .bar-list {
+        display: block;
+        width: 100%;
+        height: 3px;
+        border-radius: 50px;
+        background-color: #555;
+        transition: all 0.4s cubic-bezier(0.68, -0.6, 0.32, 1.6); /* Bouncy effect */
+        position: relative;
+    }
 
-.bar-list {
-    --transform: -25%;
-    display: block;
-    width: 100%;
-    height: 3px;
-    border-radius: 50px;
-    background-color: #555; /* Dark bars for light background */
-    transition: all 0.4s cubic-bezier(0.075, 0.82, 0.165, 1);
-    position: relative;
-}
+    /* ANIMATION LOGIC: When Checked */
+    
+    /* Top Line: Move down and rotate */
+    .event-wrapper-inp:checked ~ .bar > .top {
+        transform: translateY(6.5px) rotate(45deg);
+        background-color: #ff4757;
+    }
 
-/* Menu logic */
-.menu-container {
-    background-color: white;
-    color: #333;
-    border-radius: 12px;
-    position: absolute;
-    width: 160px;
-    left: 50%;
-    transform: translateX(-50%);
-    top: 130%;
-    overflow: hidden;
-    clip-path: inset(0% 0% 0% 0% round 12px);
-    transition: all 0.4s;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-}
+    /* Middle Line: Fade out and slide left */
+    .event-wrapper-inp:checked ~ .bar > .middle {
+        opacity: 0;
+        transform: translateX(-10px);
+    }
 
-.menu-list {
-    --delay: 0.2s;
-    --trdelay: 0.1s;
-    padding: 12px 15px;
-    font-size: 14px;
-    transition: background-color 0.2s;
-    position: relative;
-    transform: translateY(30px);
-    opacity: 0;
-}
+    /* Bottom Line: Move up and rotate */
+    .event-wrapper-inp:checked ~ .bar > .bottom {
+        transform: translateY(-6.5px) rotate(-45deg);
+        background-color: #ff4757;
+    }
 
-.menu-list:not(:last-child)::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    height: 1px;
-    background-color: rgba(0, 0, 0, 0.05);
-    width: 90%;
-}
+    /* Menu Container Styling */
+    .menu-container {
+        background-color: white;
+        border-radius: 12px;
+        position: absolute;
+        width: 160px;
+        left: 50%;
+        transform: translateX(-50%);
+        top: 130%;
+        overflow: hidden;
+        /* Start hidden */
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transform: translate(-50%, 10px);
+        transition: all 0.3s ease;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
 
-.menu-list:hover {
-    background-color: #f0f0f0;
-}
+    .event-wrapper-inp:checked ~ .menu-container {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transform: translate(-50%, 0px);
+    }
 
-/* Checked State - Opened */
-.event-wrapper-inp:checked ~ .menu-container {
-    clip-path: inset(0% 0% 0% 0% round 12px); /* Corrected from original to show menu */
-}
+    .menu-list {
+        padding: 12px 15px;
+        font-size: 14px;
+        color: #333;
+        transition: background 0.2s;
+    }
 
-/* Hamburger Animation */
-.event-wrapper-inp:checked ~ .bar > .top {
-    transform-origin: top right;
-    transform: translateY(4px) rotate(-45deg) scaleX(1.1);
-    background-color: #ff4757; /* Change color when active */
-}
-
-.event-wrapper-inp:checked ~ .bar > .middle {
-    transform: translateX(-20px);
-    opacity: 0;
-}
-
-.event-wrapper-inp:checked ~ .bar > .bottom {
-    transform-origin: bottom right;
-    transform: translateY(-4px) rotate(45deg) scaleX(1.1);
-    background-color: #ff4757;
-}
-
-/* Show menu items with staggered delay */
-.event-wrapper-inp:checked ~ .menu-container .menu-list {
-    transform: translateY(0);
-    opacity: 1;
-}
-
-.event-wrapper-inp:checked ~ .menu-container .menu-list:nth-child(1) { transition: transform 0.4s var(--delay), opacity 0.4s var(--delay); }
-.event-wrapper-inp:checked ~ .menu-container .menu-list:nth-child(2) { transition: transform 0.4s calc(var(--delay) + var(--trdelay)), opacity 0.4s calc(var(--delay) + var(--trdelay)); }
-.event-wrapper-inp:checked ~ .menu-container .menu-list:nth-child(3) { transition: transform 0.4s calc(var(--delay) + (var(--trdelay) * 2)), opacity 0.4s calc(var(--delay) + (var(--trdelay) * 2)); }
-
+    .menu-list:hover {
+        background-color: #f0f0f0;
+    }
 </style>
 <body>
 
 <label class="event-wrapper">
-  <input type="checkbox" class="event-wrapper-inp" />
-  <div class="bar">
-    <span class="top bar-list"></span>
-    <span class="middle bar-list"></span>
-    <span class="bottom bar-list"></span>
-  </div>
-  <section class="menu-container">
-    <div class="menu-list">Edit Profile</div>
-    <div class="menu-list">Share Link</div>
-    <div style="color: #ff4757;" class="menu-list">Delete Account</div>
-  </section>
+    <input type="checkbox" class="event-wrapper-inp" />
+    <div class="bar">
+        <span class="top bar-list"></span>
+        <span class="middle bar-list"></span>
+        <span class="bottom bar-list"></span>
+    </div>
+    
+    <section class="menu-container">
+        <div class="menu-list">Edit Profile</div>
+        <div class="menu-list">Share Link</div>
+        <div style="color: #ff4757;" class="menu-list">Delete</div>
+    </section>
 </label>
 
 </body>
