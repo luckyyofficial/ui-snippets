@@ -3,59 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3 images hover box</title>
+    <title>3 Images Hover Box</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #121212;
+            margin: 0;
+        }
+
+        .card {
+            width: 450px; /* Increased width to better show images */
+            height: 254px;
+            border-radius: 8px;
+            background: #212121;
+            display: flex;
+            gap: 8px;
+            padding: .6em;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        /* Each section of the accordion */
+        .card .panel {
+            height: 100%;
+            flex: 1;
+            overflow: hidden;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all .6s cubic-bezier(0.16, 1, 0.3, 1);
+            border: 1px solid #ff5a91;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            /* Background settings for images */
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Expanding logic */
+        .card .panel:hover {
+            flex: 5;
+        }
+
+        /* Dark overlay to make text readable */
+        .card .panel::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.3);
+            transition: opacity 0.5s;
+        }
+
+        .card .panel:hover::before {
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .card .panel span {
+            position: relative;
+            z-index: 2;
+            min-width: 14em;
+            padding: .5em;
+            text-align: center;
+            transform: rotate(-90deg);
+            transition: all .5s;
+            text-transform: uppercase;
+            color: #ffffff;
+            font-weight: bold;
+            font-family: sans-serif;
+            letter-spacing: .1em;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .card .panel:hover span {
+            transform: rotate(0);
+            font-size: 1.2em;
+        }
+    </style>
 </head>
-<style>
-    
-.card {
-  width: 210px;
-  height: 254px;
-  border-radius: 4px;
-  background: #212121;
-  display: flex;
-  gap: 5px;
-  padding: .4em;
-}
-
-.card p {
-  height: 100%;
-  flex: 1;
-  overflow: hidden;
-  cursor: pointer;
-  border-radius: 2px;
-  transition: all .5s;
-  background: #212121;
-  border: 1px solid #ff5a91;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.card p:hover {
-  flex: 4;
-}
-
-.card p span {
-  min-width: 14em;
-  padding: .5em;
-  text-align: center;
-  transform: rotate(-90deg);
-  transition: all .5s;
-  text-transform: uppercase;
-  color: #ff568e;
-  letter-spacing: .1em;
-}
-
-.card p:hover span {
-  transform: rotate(0);
-}
-</style>
 <body>
     
 <div class="card">
-    <p><span>HOVER ME</span></p>
-    <p><span>HOVER ME</span></p>
-    <p><span>HOVER ME</span></p>
+    <div class="panel" style="background-image: url('https://picsum.photos/id/10/400/300');">
+        <span>Nature</span>
+    </div>
+    <div class="panel" style="background-image: url('https://picsum.photos/id/20/400/300');">
+        <span>Work</span>
+    </div>
+    <div class="panel" style="background-image: url('https://picsum.photos/id/30/400/300');">
+        <span>Style</span>
+    </div>
 </div>
+
 </body>
 </html>
