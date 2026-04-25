@@ -3,97 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3 Images Hover Box</title>
+    <title>3 Images Hover Box - Light Theme</title>
     <style>
+        /* Centering the layout for a clean presentation */
         body {
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background-color: #121212;
+            background-color: #f1f5f9; /* Soft light slate background */
             margin: 0;
+            font-family: sans-serif;
         }
 
         .card {
-            width: 450px; /* Increased width to better show images */
-            height: 254px;
-            border-radius: 8px;
-            background: #212121;
+            width: 500px; 
+            height: 300px;
+            border-radius: 12px;
+            background: #ffffff; /* White container */
             display: flex;
-            gap: 8px;
-            padding: .6em;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            gap: 10px;
+            padding: .8em;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.05);
         }
 
-        /* Each section of the accordion */
-        .card .panel {
+        .panel {
             height: 100%;
             flex: 1;
             overflow: hidden;
             cursor: pointer;
-            border-radius: 4px;
+            border-radius: 8px;
             transition: all .6s cubic-bezier(0.16, 1, 0.3, 1);
-            border: 1px solid #ff5a91;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             position: relative;
-            /* Background settings for images */
             background-size: cover;
             background-position: center;
+            /* Subtle border for the light theme */
+            border: 1px solid rgba(0, 0, 0, 0.05);
         }
 
-        /* Expanding logic */
-        .card .panel:hover {
-            flex: 5;
+        .panel:hover {
+            flex: 6;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
 
-        /* Dark overlay to make text readable */
-        .card .panel::before {
+        /* Gradient overlay for better text contrast in light mode */
+        .panel::before {
             content: '';
             position: absolute;
             inset: 0;
-            background: rgba(0, 0, 0, 0.3);
+            background: linear-gradient(to top, rgba(0,0,0,0.4), transparent);
+            opacity: 0.8;
             transition: opacity 0.5s;
         }
 
-        .card .panel:hover::before {
-            background: rgba(0, 0, 0, 0.1);
+        .panel:hover::before {
+            opacity: 0.4;
         }
 
-        .card .panel span {
-            position: relative;
-            z-index: 2;
-            min-width: 14em;
-            padding: .5em;
-            text-align: center;
-            transform: rotate(-90deg);
-            transition: all .5s;
+        .panel span {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%) rotate(-90deg);
+            white-space: nowrap;
+            transition: all 0.5s;
             text-transform: uppercase;
             color: #ffffff;
-            font-weight: bold;
-            font-family: sans-serif;
-            letter-spacing: .1em;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            font-weight: 700;
+            letter-spacing: .15em;
+            font-size: 0.9em;
+            pointer-events: none;
+            z-index: 2;
         }
 
-        .card .panel:hover span {
-            transform: rotate(0);
-            font-size: 1.2em;
+        .panel:hover span {
+            transform: translateX(-50%) rotate(0);
+            font-size: 1.1em;
+            bottom: 30px;
         }
+
+        /* specific accent colors for borders on hover */
+        .panel:nth-child(1):hover { border-color: #7c3aed; }
+        .panel:nth-child(2):hover { border-color: #ec4899; }
+        .panel:nth-child(3):hover { border-color: #06b6d4; }
     </style>
 </head>
 <body>
     
 <div class="card">
-    <div class="panel" style="background-image: url('https://picsum.photos/id/10/400/300');">
-        <span>Nature</span>
+    <div class="panel" style="background-image: url('https://picsum.photos/id/101/500/400');">
+        <span>Mountains</span>
     </div>
-    <div class="panel" style="background-image: url('https://picsum.photos/id/20/400/300');">
-        <span>Work</span>
+    <div class="panel" style="background-image: url('https://picsum.photos/id/102/500/400');">
+        <span>Forest</span>
     </div>
-    <div class="panel" style="background-image: url('https://picsum.photos/id/30/400/300');">
-        <span>Style</span>
+    <div class="panel" style="background-image: url('https://picsum.photos/id/103/500/400');">
+        <span>Ocean</span>
     </div>
 </div>
 
