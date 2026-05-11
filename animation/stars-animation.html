@@ -4,118 +4,127 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stars Animation</title>
-</head>
 <style>
-    
-.rating {
-  display: flex;
-  flex-direction: row-reverse;
-  gap: 0.3rem;
-  --stroke: #666;
-  --fill: #ffc73a;
-}
-
-.rating input {
-  appearance: unset;
-}
-
-.rating label {
-  cursor: pointer;
-}
-
-.rating svg {
-  width: 2rem;
-  height: 2rem;
-  overflow: visible;
-  fill: transparent;
-  stroke: var(--stroke);
-  stroke-linejoin: bevel;
-  stroke-dasharray: 12;
-  animation: idle 4s linear infinite;
-  transition: stroke 0.2s, fill 0.5s;
-}
-
-@keyframes idle {
-  from {
-    stroke-dashoffset: 24;
+  body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #1a1a1a;
   }
-}
 
-.rating label:hover svg {
-  stroke: var(--fill);
-}
+  .rating {
+    display: flex;
+    flex-direction: row-reverse; /* Allows the ~ selector to work backwards */
+    gap: 0.5rem;
+    --stroke: #666;
+    --fill: #ffc73a;
+  }
 
-.rating input:checked ~ label svg {
-  transition: 0s;
-  animation: idle 4s linear infinite, yippee 0.75s backwards;
-  fill: var(--fill);
-  stroke: var(--fill);
-  stroke-opacity: 0;
-  stroke-dasharray: 0;
-  stroke-linejoin: miter;
-  stroke-width: 8px;
-}
+  .rating input {
+    display: none; /* Hide the actual radio dots */
+  }
 
-@keyframes yippee {
-  0% {
-    transform: scale(1);
-    fill: var(--fill);
-    fill-opacity: 0;
-    stroke-opacity: 1;
+  .rating label {
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+
+  .rating label:hover {
+    transform: scale(1.1);
+  }
+
+  .rating svg {
+    width: 3rem;
+    height: 3rem;
+    overflow: visible;
+    fill: transparent;
     stroke: var(--stroke);
-    stroke-dasharray: 10;
-    stroke-width: 1px;
     stroke-linejoin: bevel;
+    stroke-dasharray: 12;
+    animation: idle 4s linear infinite;
+    transition: stroke 0.2s, fill 0.5s;
   }
 
-  30% {
-    transform: scale(0);
-    fill: var(--fill);
-    fill-opacity: 0;
-    stroke-opacity: 1;
-    stroke: var(--stroke);
-    stroke-dasharray: 10;
-    stroke-width: 1px;
-    stroke-linejoin: bevel;
+  @keyframes idle {
+    from { stroke-dashoffset: 24; }
   }
 
-  30.1% {
+  /* Hover effect: Light up the current star and all stars to its left */
+  .rating label:hover svg,
+  .rating label:hover ~ label svg {
     stroke: var(--fill);
+  }
+
+  /* Checked state: Fill the stars */
+  .rating input:checked ~ label svg {
+    transition: 0s;
+    animation: idle 4s linear infinite, yippee 0.75s backwards;
+    fill: var(--fill);
+    stroke: var(--fill);
+    stroke-opacity: 0;
     stroke-dasharray: 0;
     stroke-linejoin: miter;
     stroke-width: 8px;
   }
 
-  60% {
-    transform: scale(1.2);
-    fill: var(--fill);
+  @keyframes yippee {
+    0% {
+      transform: scale(1);
+      fill-opacity: 0;
+      stroke-opacity: 1;
+      stroke: var(--stroke);
+      stroke-dasharray: 10;
+      stroke-width: 1px;
+    }
+    30% {
+      transform: scale(0);
+      fill-opacity: 0;
+      stroke-opacity: 1;
+      stroke: var(--stroke);
+    }
+    30.1% {
+      stroke: var(--fill);
+      stroke-dasharray: 0;
+      stroke-width: 8px;
+    }
+    60% {
+      transform: scale(1.2);
+      fill-opacity: 1;
+    }
   }
-}
-
 </style>
+</head>
 <body>
 
 <div class="rating">
-  <input type="radio" id="star-1" name="star-radio" value="star-1">
-  <label for="star-1">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path pathLength="360" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"></path></svg>
-  </label>
-  <input type="radio" id="star-2" name="star-radio" value="star-1">
-  <label for="star-2">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path pathLength="360" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"></path></svg>
-  </label>
-  <input type="radio" id="star-3" name="star-radio" value="star-1">
-  <label for="star-3">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path pathLength="360" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"></path></svg>
-  </label>
-  <input type="radio" id="star-4" name="star-radio" value="star-1">
-  <label for="star-4">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path pathLength="360" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"></path></svg>
-  </label>
-  <input type="radio" id="star-5" name="star-radio" value="star-1">
+  <!-- Note: IDs are unique and values reflect the star rank -->
+  <input type="radio" id="star-5" name="star-radio" value="5">
   <label for="star-5">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path pathLength="360" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"></path></svg>
   </label>
+  
+  <input type="radio" id="star-4" name="star-radio" value="4">
+  <label for="star-4">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path pathLength="360" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"></path></svg>
+  </label>
+  
+  <input type="radio" id="star-3" name="star-radio" value="3">
+  <label for="star-3">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path pathLength="360" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"></path></svg>
+  </label>
+  
+  <input type="radio" id="star-2" name="star-radio" value="2">
+  <label for="star-2">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path pathLength="360" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"></path></svg>
+  </label>
+  
+  <input type="radio" id="star-1" name="star-radio" value="1">
+  <label for="star-1">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path pathLength="360" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"></path></svg>
+  </label>
 </div>
+
 </body>
 </html>
