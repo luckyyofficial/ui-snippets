@@ -4,221 +4,319 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Placed Order Status</title>
+    <style>
+        /* Base Reset & Screen Centering */
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            color: #0f172a;
+        }
+
+        /* Upgraded Stepper Container Card */
+        .stepper-box {
+            background-color: #ffffff;
+            border-radius: 16px;
+            padding: 32px;
+            width: 380px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(241, 245, 249, 0.8);
+        }
+
+        /* Step Layout Structure */
+        .stepper-step {
+            display: flex;
+            margin-bottom: 28px;
+            position: relative;
+        }
+
+        .stepper-step:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Dynamic Vertical Connecting Lines */
+        .stepper-line {
+            position: absolute;
+            left: 19px;
+            top: 40px;
+            bottom: -28px;
+            width: 2px;
+            background-color: #e2e8f0;
+            z-index: 1;
+            transition: background-color 0.4s ease;
+        }
+
+        .stepper-step:last-child .stepper-line {
+            display: none;
+        }
+
+        /* Circle Badge Bases */
+        .stepper-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 18px;
+            z-index: 2;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            background-color: #ffffff;
+        }
+
+        /* Active State Line Transition Modifier */
+        .stepper-step.stepper-completed + .stepper-step .stepper-line,
+        .stepper-step.stepper-completed .stepper-line {
+            background-color: #0f172a;
+        }
+
+        /* Circle State Variations */
+        .stepper-completed .stepper-circle {
+            background-color: #0f172a;
+            color: #ffffff;
+            border: 2px solid #0f172a;
+        }
+
+        .stepper-active .stepper-circle {
+            border: 2px solid #0f172a;
+            color: #0f172a;
+            box-shadow: 0 0 0 4px rgba(15, 23, 42, 0.1);
+        }
+
+        .stepper-pending .stepper-circle {
+            border: 2px solid #e2e8f0;
+            color: #94a3b8;
+        }
+
+        /* Typography Hierarchy Structure */
+        .stepper-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .stepper-title {
+            font-weight: 600;
+            font-size: 15px;
+            transition: color 0.3s ease;
+        }
+
+        .stepper-completed .stepper-title,
+        .stepper-active .stepper-title {
+            color: #0f172a;
+        }
+
+        .stepper-pending .stepper-title {
+            color: #94a3b8;
+        }
+
+        /* Status Pills Layout */
+        .stepper-status {
+            font-size: 12px;
+            font-weight: 500;
+            align-self: flex-start;
+            padding: 3px 10px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .stepper-completed .stepper-status {
+            background-color: #f0fdf4;
+            color: #166534;
+        }
+
+        .stepper-active .stepper-status {
+            background-color: #eff6ff;
+            color: #1d4ed8;
+        }
+
+        .stepper-pending .stepper-status {
+            background-color: #f8fafc;
+            color: #64748b;
+            border: 1px solid #f1f5f9;
+        }
+
+        .stepper-time {
+            font-size: 12px;
+            color: #94a3b8;
+        }
+
+        /* Interactive Action Elements Layout */
+        .stepper-controls {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 36px;
+            padding-top: 20px;
+            border-top: 1px solid #f1f5f9;
+        }
+
+        .stepper-button {
+            padding: 10px 18px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            background-color: #ffffff;
+            color: #475569;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .stepper-button:hover:not(:disabled) {
+            background-color: #f8fafc;
+            color: #0f172a;
+            border-color: #cbd5e1;
+        }
+
+        .stepper-button-primary {
+            background-color: #0f172a;
+            color: #ffffff;
+            border-color: #0f172a;
+        }
+
+        .stepper-button-primary:hover:not(:disabled) {
+            background-color: #1e293b;
+            color: #ffffff;
+            border-color: #1e293b;
+        }
+
+        .stepper-button:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+    </style>
 </head>
-<style>
-
-.stepper-box {
-  background-color: white;
-  border-radius: 12px;
-  padding: 32px;
-  width: 400px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-}
-
-.stepper-step {
-  display: flex;
-  margin-bottom: 32px;
-  position: relative;
-}
-
-.stepper-step:last-child {
-  margin-bottom: 0;
-}
-
-.stepper-line {
-  position: absolute;
-  left: 19px;
-  top: 40px;
-  bottom: -32px;
-  width: 2px;
-  background-color: #e2e8f0;
-  z-index: 1;
-}
-
-.stepper-step:last-child .stepper-line {
-  display: none;
-}
-
-.stepper-circle {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 16px;
-  z-index: 2;
-}
-
-.stepper-completed .stepper-circle {
-  background-color: #0f172a;
-  color: white;
-}
-
-.stepper-active .stepper-circle {
-  border: 2px solid #0f172a;
-  color: #0f172a;
-}
-
-.stepper-pending .stepper-circle {
-  border: 2px solid #e2e8f0;
-  color: #94a3b8;
-}
-
-.stepper-content {
-  flex: 1;
-}
-
-.stepper-title {
-  font-weight: 600;
-  margin-bottom: 4px;
-}
-
-.stepper-completed .stepper-title {
-  color: #0f172a;
-}
-
-.stepper-active .stepper-title {
-  color: #0f172a;
-}
-
-.stepper-pending .stepper-title {
-  color: #94a3b8;
-}
-
-.stepper-status {
-  font-size: 13px;
-  display: inline-block;
-  padding: 2px 8px;
-  border-radius: 12px;
-  margin-top: 4px;
-}
-
-.stepper-completed .stepper-status {
-  background-color: #dcfce7;
-  color: #166534;
-}
-
-.stepper-active .stepper-status {
-  background-color: #dbeafe;
-  color: #1d4ed8;
-}
-
-.stepper-pending .stepper-status {
-  background-color: #f1f5f9;
-  color: #64748b;
-}
-
-.stepper-time {
-  font-size: 12px;
-  color: #94a3b8;
-  margin-top: 4px;
-}
-
-.stepper-controls {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 32px;
-}
-
-.stepper-button {
-  padding: 8px 16px;
-  border-radius: 6px;
-  border: 1px solid #e2e8f0;
-  background-color: white;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.stepper-button-primary {
-  background-color: #0f172a;
-  color: white;
-  border-color: #0f172a;
-}
-
-</style>
 <body>
 
-    <div class="stepper-box">
-  <div class="stepper-step stepper-completed">
-    <div class="stepper-circle">
-      <svg
-        viewBox="0 0 16 16"
-        class="bi bi-check-lg"
-        fill="currentColor"
-        height="16"
-        width="16"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425z"
-        ></path>
-      </svg>
+<div class="stepper-box">
+    <div class="stepper-step" id="step-1">
+        <div class="stepper-circle">1</div>
+        <div class="stepper-line"></div>
+        <div class="stepper-content">
+            <div class="stepper-title">Order Placed</div>
+            <div class="stepper-status">Completed</div>
+            <div class="stepper-time">May 28, 10:24 AM</div>
+        </div>
     </div>
-    <div class="stepper-line"></div>
-    <div class="stepper-content">
-      <div class="stepper-title">Order Placed</div>
-      <div class="stepper-status">Completed</div>
-      <div class="stepper-time">May 28, 10:24 AM</div>
-    </div>
-  </div>
 
-  <div class="stepper-step stepper-active">
-    <div class="stepper-circle">2</div>
-    <div class="stepper-line"></div>
-    <div class="stepper-content">
-      <div class="stepper-title">Processing</div>
-      <div class="stepper-status">In Progress</div>
-      <div class="stepper-time">May 29, 02:15 PM</div>
+    <div class="stepper-step" id="step-2">
+        <div class="stepper-circle">2</div>
+        <div class="stepper-line"></div>
+        <div class="stepper-content">
+            <div class="stepper-title">Processing</div>
+            <div class="stepper-status">In Progress</div>
+            <div class="stepper-time">May 29, 02:15 PM</div>
+        </div>
     </div>
-  </div>
 
-  <div class="stepper-step stepper-pending">
-    <div class="stepper-circle">3</div>
-    <div class="stepper-content">
-      <div class="stepper-title">Shipping</div>
-      <div class="stepper-status">Pending</div>
-      <div class="stepper-time">Estimated: May 30</div>
+    <div class="stepper-step" id="step-3">
+        <div class="stepper-circle">3</div>
+        <div class="stepper-content">
+            <div class="stepper-title">Shipping</div>
+            <div class="stepper-status">Pending</div>
+            <div class="stepper-time">Estimated: May 30</div>
+        </div>
     </div>
-  </div>
 
-  <div class="stepper-controls">
-    <button class="stepper-button">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="16"
-        height="16"
-        fill="currentColor"
-        class="bi bi-arrow-left"
-        viewBox="0 0 16 16"
-      >
-        <path
-          fill-rule="evenodd"
-          d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"
-        ></path>
-      </svg>
-      Previous
-    </button>
-    <button class="stepper-button stepper-button-primary">
-      Next
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="16"
-        height="16"
-        fill="currentColor"
-        class="bi bi-arrow-right"
-        viewBox="0 0 16 16"
-      >
-        <path
-          fill-rule="evenodd"
-          d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"
-        ></path>
-      </svg>
-    </button>
-  </div>
+    <div class="stepper-controls">
+        <button class="stepper-button" id="prevBtn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
+            </svg>
+            Previous
+        </button>
+        <button class="stepper-button stepper-button-primary" id="nextBtn">
+            Next
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"/>
+            </svg>
+        </button>
+    </div>
 </div>
+
+<script>
+    // State Manager Setup
+    let currentActiveStep = 2; // Initial state corresponding to your markup structure
+    const totalSteps = 3;
+
+    // Configured data matrices to handle functional innerHTML rendering states
+    const stepData = {
+        1: { title: "Order Placed", completed: "Completed", current: "In Progress", pending: "Pending", timeDone: "May 28, 10:24 AM", timeNext: "Awaiting Update" },
+        2: { title: "Processing", completed: "Processed", current: "In Progress", pending: "Pending", timeDone: "May 29, 02:15 PM", timeNext: "Awaiting Processing" },
+        3: { title: "Shipping", completed: "Shipped", current: "In Flight", pending: "Pending", timeDone: "May 30, 08:00 AM", timeNext: "Estimated: May 30" }
+    };
+
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+
+    // Vector Graphics Template Injection
+    const checkIcon = `<svg viewBox="0 0 16 16" fill="currentColor" height="16" width="16" xmlns="http://www.w3.org/2000/svg"><path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425z"></path></svg>`;
+
+    function updateStepper() {
+        for (let i = 1; i <= totalSteps; i++) {
+            const stepEl = document.getElementById(`step-${i}`);
+            const circleEl = stepEl.querySelector('.stepper-circle');
+            const statusEl = stepEl.querySelector('.stepper-status');
+            const timeEl = stepEl.querySelector('.stepper-time');
+
+            // Reset classes clean slate
+            stepEl.classList.remove('stepper-completed', 'stepper-active', 'stepper-pending');
+
+            if (i < currentActiveStep) {
+                // Completed Steps Configuration
+                stepEl.classList.add('stepper-completed');
+                circleEl.innerHTML = checkIcon;
+                statusEl.textContent = stepData[i].completed;
+                timeEl.textContent = stepData[i].timeDone;
+            } else if (i === currentActiveStep) {
+                // Active State Configuration
+                stepEl.classList.add('stepper-active');
+                circleEl.innerHTML = i;
+                statusEl.textContent = stepData[i].current;
+                timeEl.textContent = stepData[i].timeDone;
+            } else {
+                // Pending States Configuration
+                stepEl.classList.add('stepper-pending');
+                circleEl.innerHTML = i;
+                statusEl.textContent = stepData[i].pending;
+                timeEl.textContent = stepData[i].timeNext;
+            }
+        }
+
+        // Control logic handling UI Button disable bounds
+        prevBtn.disabled = currentActiveStep === 1;
+        nextBtn.disabled = currentActiveStep === totalSteps;
+    }
+
+    // Interactive Action Listeners 
+    prevBtn.addEventListener('click', () => {
+        if (currentActiveStep > 1) {
+            currentActiveStep--;
+            updateStepper();
+        }
+    });
+
+    nextBtn.addEventListener('click', () => {
+        if (currentActiveStep < totalSteps) {
+            currentActiveStep++;
+            updateStepper();
+        }
+    });
+
+    // Initialize State System Run on Execution Loop
+    updateStepper();
+</script>
 
 </body>
 </html>
