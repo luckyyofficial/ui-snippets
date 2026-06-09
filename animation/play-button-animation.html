@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Play Button Animation</title>
+    <title>Play Button Animation - Light Theme</title>
     <style>
-        /* Centering the button perfectly on the screen */
+        /* Centering the button on a clean light background */
         body {
             margin: 0;
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: #111625; /* Dark background so the light text/glows stand out */
+            background-color: #f3f4f6; /* Soft light-gray background */
             font-family: system-ui, -apple-system, sans-serif;
             overflow: hidden;
         }
@@ -23,16 +23,18 @@
           height: 4em;
           outline: none;
           transition: 0.1s;
-          background-color: transparent;
+          background-color: transparent; /* Maintained transparent background */
           border: none;
           font-size: 13px;
           font-weight: bold;
-          color: #ddebf0;
-          cursor: pointer; /* Changes cursor to pointer on hover */
+          color: #ffffff; /* Crisp white text */
+          cursor: pointer;
+          text-shadow: 0 1px 3px rgba(0,0,0,0.15); /* Soft shadow so white text is readable over transparency */
+          z-index: 1;
         }
 
         #clip {
-          --color: #2761c3;
+          --color: #ffffff; /* Default white border */
           position: absolute;
           top: 0;
           left: 0;
@@ -40,15 +42,17 @@
           width: 100%;
           height: 100%;
           border: 5px double var(--color);
-          box-shadow: inset 0px 0px 15px #195480;
+          background-color: rgba(255, 255, 255, 0.2); /* Semi-transparent white core */
+          box-shadow: inset 0px 0px 15px rgba(255, 255, 255, 0.6);
           -webkit-clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
           clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+          z-index: -1;
         }
 
         .arrow {
           position: absolute;
           transition: 0.2s;
-          background-color: #2761c3;
+          background-color: #ffffff; /* White arrows */
           top: 35%;
           width: 11%;
           height: 30%;
@@ -67,7 +71,7 @@
         }
 
         button:hover #rightArrow {
-          background-color: #27c39f;
+          background-color: #27c39f; /* Transitions to active theme green */
           left: -15%;
           animation: 0.6s ease-in-out both infinite alternate rightArrow8;
         }
@@ -82,12 +86,13 @@
           position: absolute;
           width: 4em;
           height: 4em;
-          background-color: #2761c3;
-          box-shadow: inset 1px 1px 8px #2781c3;
+          background-color: #ffffff; /* White corners */
+          box-shadow: inset 1px 1px 8px rgba(255, 255, 255, 0.8);
           transform: scale(1) rotate(45deg);
           transition: 0.2s;
         }
 
+        /* Fine-tuned positioning to align cleanly with the light borders */
         #rightTop {
           top: -1.98em;
           left: 91%;
@@ -137,18 +142,19 @@
           --color: #27c39f;
         }
 
+        /* Keyframes adjusted for white-to-green transitions */
         @keyframes changeColor8 {
-          from { background-color: #2781c3; }
+          from { background-color: #ffffff; }
           to { background-color: #27c39f; }
         }
 
         @keyframes lightEffect8 {
-          from { box-shadow: 1px 1px 5px #27c39f; }
-          to { box-shadow: 0 0 2px #27c39f; }
+          from { box-shadow: 1px 1px 5px rgba(39, 195, 159, 0.5); }
+          to { box-shadow: 0 0 2px rgba(39, 195, 159, 0.2); }
         }
 
         @keyframes greenLight8 {
-          to { box-shadow: inset 0px 0px 32px #27c39f; }
+          to { box-shadow: inset 0px 0px 32px rgba(39, 195, 159, 0.6); }
         }
 
         @keyframes leftArrow8 {
