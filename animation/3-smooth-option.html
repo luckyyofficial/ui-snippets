@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3 Smooth Options</title>
+    <title>3 Smooth Options - Dark Mode</title>
 </head>
 <style>
 
@@ -13,11 +13,13 @@ body {
   align-items: center;
   height: 100vh;
   margin: 0;
+  background-color: #121212;
+  font-family: -apple-system, "Segoe UI", system-ui, sans-serif;
 }
 
 .radio-container {
   --main-color: #f7e479;
-  --main-color-opacity: #f7e4791c;
+  --main-color-opacity: rgba(247, 228, 121, 0.12);
 
   /* change this according inputs count */
   --total-radio: 3;
@@ -25,12 +27,15 @@ body {
   display: flex;
   flex-direction: column;
   position: relative;
-  padding-left: 0.5rem;
+  padding-left: 0.75rem;
 }
+
 .radio-container input {
   cursor: pointer;
   appearance: none;
+  position: absolute;
 }
+
 .radio-container .glider-container {
   position: absolute;
   left: 0;
@@ -38,12 +43,13 @@ body {
   bottom: 0;
   background: linear-gradient(
     0deg,
-    rgba(0, 0, 0, 0) 0%,
-    rgba(27, 27, 27, 1) 50%,
-    rgba(0, 0, 0, 0) 100%
+    rgba(255, 255, 255, 0) 0%,
+    rgba(40, 40, 40, 1) 50%,
+    rgba(255, 255, 255, 0) 100%
   );
-  width: 1px;
+  width: 2px;
 }
+
 .radio-container .glider-container .glider {
   position: relative;
   height: calc(100% / var(--total-radio));
@@ -56,16 +62,19 @@ body {
   );
   transition: transform 0.5s cubic-bezier(0.37, 1.95, 0.66, 0.56);
 }
+
 .radio-container .glider-container .glider::before {
   content: "";
   position: absolute;
   height: 60%;
-  width: 300%;
+  width: 300px;
   top: 50%;
   transform: translateY(-50%);
   background: var(--main-color);
-  filter: blur(10px);
+  filter: blur(12px);
+  opacity: 0.6;
 }
+
 .radio-container .glider-container .glider::after {
   content: "";
   position: absolute;
@@ -78,16 +87,24 @@ body {
     rgba(0, 0, 0, 0) 100%
   );
 }
+
 .radio-container label {
   cursor: pointer;
-  padding: 1rem;
+  padding: 1rem 1.5rem;
   position: relative;
-  color: grey;
-  transition: all 0.3s ease-in-out;
+  color: #777777;
+  font-weight: 500;
+  font-size: 1rem;
+  transition: color 0.3s ease-in-out;
+}
+
+.radio-container label:hover {
+  color: #aaaaaa;
 }
 
 .radio-container input:checked + label {
   color: var(--main-color);
+  text-shadow: 0 0 10px rgba(247, 228, 121, 0.4);
 }
 
 .radio-container input:nth-of-type(1):checked ~ .glider-container .glider {
