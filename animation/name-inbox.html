@@ -3,16 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Name Inbox Animation</title>
+    <title>Wave Input Animation - Light Theme</title>
 </head>
 <style>
-
 body {
   font-family: 'Roboto', sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
+  background-color: #f4f6f9; /* Clean light background */
+  margin: 0;
 }
     
 .wave-group {
@@ -23,10 +24,11 @@ body {
   font-size: 16px;
   padding: 10px 10px 10px 5px;
   display: block;
-  width: 200px;
+  width: 250px;
   border: none;
-  border-bottom: 1px solid #515151;
+  border-bottom: 1px solid #cbd5e1; /* Soft border for light theme */
   background: transparent;
+  color: #1e293b; /* Dark text for light background */
 }
 
 .wave-group .input:focus {
@@ -34,8 +36,8 @@ body {
 }
 
 .wave-group .label {
-  color: #999;
-  font-size: 18px;
+  color: #64748b; /* Muted label color */
+  font-size: 16px;
   font-weight: normal;
   position: absolute;
   pointer-events: none;
@@ -49,29 +51,27 @@ body {
   transition-delay: calc(var(--index) * .05s);
 }
 
-.wave-group .input:focus ~ label .label-char,
-.wave-group .input:valid ~ label .label-char {
-  transform: translateY(-20px);
-  font-size: 14px;
-  color: #5264AE;
+.wave-group .input:focus ~ .label .label-char,
+.wave-group .input:valid ~ .label .label-char {
+  transform: translateY(-22px);
+  font-size: 13px;
+  color: #3b82f6; /* Bright accent color for focus */
 }
 
 .wave-group .bar {
   position: relative;
   display: block;
-  width: 200px;
+  width: 250px;
 }
 
-.wave-group .bar:before,.wave-group .bar:after {
+.wave-group .bar:before, .wave-group .bar:after {
   content: '';
   height: 2px;
   width: 0;
-  bottom: 1px;
+  bottom: 0px;
   position: absolute;
-  background: #5264AE;
+  background: #3b82f6; /* Matching focus accent */
   transition: 0.2s ease all;
-  -moz-transition: 0.2s ease all;
-  -webkit-transition: 0.2s ease all;
 }
 
 .wave-group .bar:before {
@@ -86,15 +86,18 @@ body {
 .wave-group .input:focus ~ .bar:after {
   width: 50%;
 }
-
-
 </style>
 <body>
-    
-<div class="input-container">
-  <input placeholder="Enter text" class="input-field" type="text">
-  <label for="input-field" class="input-label">Enter text</label>
-  <span class="input-highlight"></span>
+
+<div class="wave-group">
+  <input required="" type="text" class="input">
+  <span class="bar"></span>
+  <label class="label">
+    <span class="label-char" style="--index: 0">N</span>
+    <span class="label-char" style="--index: 1">a</span>
+    <span class="label-char" style="--index: 2">m</span>
+    <span class="label-char" style="--index: 3">e</span>
+  </label>
 </div>
 
 </body>
