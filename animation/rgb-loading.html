@@ -3,27 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RGB loading Animation</title>
+    <title>RGB loading Animation - Light Theme</title>
 </head>
 <style>
-    
-display: flex;
-justify-content: center;
-align-items: center;
-height: 100vh;
+/* Fixed body styles by wrapping them in a selector */
+body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f4f9; /* Light background */
+}
 
 .spinner {
   width: 3em;
   height: 3em;
   cursor: not-allowed;
   border-radius: 50%;
-  border: 2px solid #444;
-  box-shadow: -10px -10px 10px #6359f8, 0px -10px 10px 0px #9c32e2, 10px -10px 10px #f36896, 10px 0 10px #ff0b0b, 10px 10px 10px 0px#ff5500, 0 10px 10px 0px #ff9500, -10px 10px 10px 0px #ffb700;
+  /* Adjusted border color for better contrast on light backgrounds */
+  border: 2px solid #ccc;
+  position: relative; /* Added to properly position the inner spinner */
+  box-shadow: -10px -10px 10px #6359f8, 
+              0px -10px 10px 0px #9c32e2, 
+              10px -10px 10px #f36896, 
+              10px 0 10px #ff0b0b, 
+              10px 10px 10px 0px #ff5500, 
+              0 10px 10px 0px #ff9500, 
+              -10px 10px 10px 0px #ffb700;
   animation: rot55 0.7s linear infinite;
 }
 
 .spinnerin {
-  border: 2px solid #444;
+  /* Adjusted inner border color for light theme */
+  border: 2px solid #ccc;
   width: 1.5em;
   height: 1.5em;
   border-radius: 50%;
@@ -38,12 +51,12 @@ height: 100vh;
     transform: rotate(360deg);
   }
 }
-
 </style>
 <body>
     
 <div class="spinner">
     <div class="spinnerin"></div>
 </div>
+
 </body>
 </html>
